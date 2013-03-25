@@ -17,10 +17,7 @@ self.port.on('profile', function(profile) {
              (profile.followers === -1 ? "n/a" : profile.followers) +
              '</td><td><a href="https://plus.google.com/u/0/' +
              profile.id + '/about">'+ profile.fullName + '</td></tr>';
-  for (i = 0;
-       i < sortedProfiles.length &&
-       profile.followers < sortedProfiles[i].followers;
-       i++); // Yes, I know... a bsearch would be faster
+  i = _.sortedIndex(sortedProfiles, profile, function (p) { return -p.followers; });
   if (i == sortedProfiles.length) {
     $('#followers').append(tableRow);
   } else {
