@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="css/bootstrap-2.3.1.min.css" rel="stylesheet">
+    <link href="css/ui.css" rel="stylesheet">
+    <title>Google Plus Follower Stats</title>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <ul class="unstyled">
+          <li>
+            <i class="icon-hand-right" id="step-check-logged"></i>
+            Check if logged in Google+
+          </li>
+          <li>
+            <i class="icon-asterisk" id="step-download-list"></i>
+            Download list of followers
+          </li>
+          <li>
+            <i class="icon-asterisk" id="step-process-follower"></i>
+            Process follower #<span id="progress">0</span> of <span id="total">?</span>
+          </li>
+        </ul>
+      </div>
+      <table class="table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th>Number of followers</th>
+            <th>Full name</th>
+          </tr>
+        </thead>
+        <tbody id="followers">
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

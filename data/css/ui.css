@@ -1,0 +1,4 @@
+table tr th:first-of-type, table tr td:first-of-type {
+  text-align: right;
+}
+
