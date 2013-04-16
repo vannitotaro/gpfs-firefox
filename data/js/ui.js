@@ -16,7 +16,7 @@ self.port.on('profile', function(profile) {
   tableRow = '<tr id="follower_' + profile.id + '"><td>' +
              (profile.followers === -1 ? "n/a" : profile.followers) +
              '</td><td><a href="https://plus.google.com/u/0/' +
-             profile.id + '/about">'+ profile.fullName + '</td></tr>';
+             profile.id + '/about">'+ profile.fullName + '</a></td></tr>';
   i = _.sortedIndex(sortedProfiles, profile, function (p) { return -p.followers; });
   if (i == sortedProfiles.length) {
     $('#followers').append(tableRow);
