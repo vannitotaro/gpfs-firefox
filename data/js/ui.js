@@ -16,7 +16,10 @@ self.port.on('profile', function(profile) {
   tableRow = '<tr id="follower_' + profile.id + '"><td>' +
              (profile.followers === -1 ? "n/a" : profile.followers) +
              '</td><td><a href="https://plus.google.com/u/0/' +
-             profile.id + '/about">'+ profile.fullName + '</a></td></tr>';
+             profile.id + '/about">'+ profile.fullName + '</a></td><td>' +
+             '<div class="g-plus" data-width="450" data-height="69" ' +
+             'data-href="https://plus.google.com/' + profile.id +'"></div>' +
+             '</td></tr>'
   i = _.sortedIndex(sortedProfiles, profile, function (p) { return -p.followers; });
   if (i == sortedProfiles.length) {
     $('#followers').append(tableRow);
