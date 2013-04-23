@@ -6,8 +6,8 @@
     <link href="css/ui.css" rel="stylesheet">
     <title>Google Plus Follower Stats</title>
   </head>
-  <body>
-    <div class="container">
+  <body ng-app="GpfsApp">
+    <div ng-controller="GpfsCtrl" class="container" id="container">
       <div>
         <ul class="unstyled">
           <li>
@@ -20,7 +20,7 @@
           </li>
           <li>
             <i class="icon-asterisk" id="step-process-follower"></i>
-            Process follower #<span id="progress">0</span> of <span id="total">?</span>
+            Process follower #{{sortedProfiles.length}} of <span id="total">?</span>
           </li>
         </ul>
         <button type="button" onclick="gapi.plus.go()">Google+ Badges</button>
@@ -33,8 +33,22 @@
           </tr>
         </thead>
         <tbody id="followers">
+          <tr id="follower_{{profile.id}}" ng-repeat="profile in sortedProfiles.slice(currentPage*pageSize, (currentPage+1)*pageSize)">
+            <td>{{notAvailable(profile.followers)}}</td>
+            <td><a href="https://plus.google.com/u/0/{{profile.id}}/about" target="_blank">{{profile.fullName}}</a></td>
+            <td><div class="g-plus" data-width="450" data-height="69" data-href="https://plus.google.com/{{profile.id}}"></div></td>
+          </tr>
         </tbody>
       </table>
+      <div>
+        <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+          Previous
+        </button>
+        {{currentPage+1}}/{{numberOfPages()}}
+        <button ng-disabled="currentPage >= sortedProfiles.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+          Next
+        </button>
+      </div>
     </div>
     <script src="https://apis.google.com/js/plusone.js">
       {parsetags: 'explicit'}

@@ -12,26 +12,27 @@ self.port.on('total', function(total) {
 });
 
 self.port.on('profile', function(profile) {
-  var tableRow, i;
-  tableRow = '<tr id="follower_' + profile.id + '"><td>' +
-             (profile.followers === -1 ? "n/a" : profile.followers) +
-             '</td><td><a href="https://plus.google.com/u/0/' +
-             profile.id + '/about">'+ profile.fullName + '</a></td><td>' +
-             '<div class="g-plus" data-width="450" data-height="69" ' +
-             'data-href="https://plus.google.com/' + profile.id +'"></div>' +
-             '</td></tr>'
-  i = _.sortedIndex(sortedProfiles, profile, function (p) { return -p.followers; });
-  if (i == sortedProfiles.length) {
-    $('#followers').append(tableRow);
-  } else {
-    $('#follower_' + sortedProfiles[i].id).before(tableRow);
-  }
+  var i = _.sortedIndex(sortedProfiles, profile, function (p) { return -p.followers; });
   sortedProfiles.splice(i, 0, profile);
-  $('#progress').text(sortedProfiles.length);
-  
+  angular.element($("#container")).scope().$apply(function(scope){
+    scope.sortedProfiles = sortedProfiles;
+  })
 });
 
 self.port.on('finished', function() {
   $('#step-process-follower').removeClass('icon-hand-right').addClass('icon-ok');
 });
 
+var app = angular.module('GpfsApp', []);
+
+function GpfsCtrl($scope) {
+  $scope.currentPage = 0;
+  $scope.pageSize = 10;
+  $scope.sortedProfiles = [];
+  $scope.numberOfPages = function () {
+    return Math.ceil($scope.sortedProfiles.length/$scope.pageSize);
+  }
+  $scope.notAvailable = function (followers) {
+    return followers === -1 ? "n/a" : followers;
+  }
+}
