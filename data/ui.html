@@ -6,8 +6,8 @@
     <link href="css/ui.css" rel="stylesheet">
     <title>Google Plus Follower Stats</title>
   </head>
-  <body ng-app="GpfsApp">
-    <div ng-controller="GpfsCtrl" class="container" id="container">
+  <body ng-app="gpfsApp">
+    <div ng-controller="gpfsCtrl" class="container" id="container">
       <div>
         <ul class="unstyled">
           <li>
@@ -20,7 +20,7 @@
           </li>
           <li>
             <i class="icon-asterisk" id="step-process-follower"></i>
-            Process follower #{{sortedProfiles.length}} of <span id="total">?</span>
+            Process follower #{{sortedProfiles.length}} of {{totalProfiles}}
           </li>
         </ul>
         <button type="button" onclick="gapi.plus.go()">Google+ Badges</button>
