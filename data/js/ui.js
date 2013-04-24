@@ -34,7 +34,4 @@ function gpfsCtrl($scope) {
   $scope.numberOfPages = function () {
     return Math.ceil($scope.sortedProfiles.length/$scope.pageSize);
   }
-  $scope.notAvailable = function (followers) {
-    return followers === -1 ? "n/a" : followers;
-  }
 }
