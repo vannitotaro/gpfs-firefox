@@ -31,7 +31,7 @@ function gpfsCtrl($scope) {
   $scope.pageSize = 20;
   $scope.sortedProfiles = [];
   $scope.totalProfiles = 0;
-  $scope.numberOfPages = function () {
-    return Math.ceil($scope.sortedProfiles.length/$scope.pageSize);
+  $scope.numOfPages = function () {
+    return Math.ceil($scope.sortedProfiles.length/$scope.pageSize) || 1;
   }
 }

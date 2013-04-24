@@ -25,6 +25,21 @@
         </ul>
         <button type="button" onclick="gapi.plus.go()">Google+ Badges</button>
       </div>
+      <div>
+        <button ng-disabled="currentPage === 0" ng-click="currentPage = 0">
+          First
+        </button>
+        <button ng-disabled="currentPage === 0" ng-click="currentPage = currentPage-1">
+          Previous
+        </button>
+        {{currentPage+1}}/{{numOfPages()}}
+        <button ng-disabled="currentPage === numOfPages()-1" ng-click="currentPage = currentPage+1">
+          Next
+        </button>
+        <button ng-disabled="currentPage === numOfPages()-1" ng-click="currentPage = numOfPages()-1">
+          Last
+        </button>
+      </div>
       <table class="table table-striped table-condensed">
         <thead>
           <tr>
@@ -40,15 +55,6 @@
           </tr>
         </tbody>
       </table>
-      <div>
-        <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-          Previous
-        </button>
-        {{currentPage+1}}/{{numberOfPages()}}
-        <button ng-disabled="currentPage >= sortedProfiles.length/pageSize - 1" ng-click="currentPage=currentPage+1">
-          Next
-        </button>
-      </div>
     </div>
     <script src="https://apis.google.com/js/plusone.js">
       {parsetags: 'explicit'}
