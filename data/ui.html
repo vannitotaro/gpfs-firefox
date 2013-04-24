@@ -26,17 +26,17 @@
         <button type="button" onclick="gapi.plus.go()">Google+ Badges</button>
       </div>
       <div>
-        <button ng-disabled="currentPage === 0" ng-click="currentPage = 0">
+        <button ng-disabled="currentPage === 1" ng-click="currentPage = 1">
           First
         </button>
-        <button ng-disabled="currentPage === 0" ng-click="currentPage = currentPage-1">
+        <button ng-disabled="currentPage === 1" ng-click="currentPage = currentPage-1">
           Previous
         </button>
-        {{currentPage+1}}/{{numOfPages()}}
-        <button ng-disabled="currentPage === numOfPages()-1" ng-click="currentPage = currentPage+1">
+        {{currentPage}}/{{numOfPages()}}
+        <button ng-disabled="currentPage === numOfPages()" ng-click="currentPage = currentPage+1">
           Next
         </button>
-        <button ng-disabled="currentPage === numOfPages()-1" ng-click="currentPage = numOfPages()-1">
+        <button ng-disabled="currentPage === numOfPages()" ng-click="currentPage = numOfPages()">
           Last
         </button>
       </div>
@@ -48,7 +48,7 @@
           </tr>
         </thead>
         <tbody id="followers">
-          <tr id="follower_{{profile.id}}" ng-repeat="profile in sortedProfiles.slice(currentPage*pageSize, (currentPage+1)*pageSize)">
+          <tr id="follower_{{profile.id}}" ng-repeat="profile in sortedProfiles.slice((currentPage-1)*pageSize, currentPage*pageSize)">
             <td>{{profile.followers === -1 && "n/a" || profile.followers}}</td>
             <td><a href="https://plus.google.com/u/0/{{profile.id}}/about" target="_blank">{{profile.fullName}}</a></td>
             <td><div class="g-plus" data-width="450" data-height="69" data-href="https://plus.google.com/{{profile.id}}"></div></td>

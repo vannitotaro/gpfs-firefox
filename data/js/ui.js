@@ -27,7 +27,7 @@ self.port.on('finished', function () {
 var app = angular.module('gpfsApp', []);
 
 function gpfsCtrl($scope) {
-  $scope.currentPage = 0;
+  $scope.currentPage = 1;
   $scope.pageSize = 20;
   $scope.sortedProfiles = [];
   $scope.totalProfiles = 0;
