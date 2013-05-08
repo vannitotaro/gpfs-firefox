@@ -35,3 +35,12 @@ function gpfsCtrl($scope) {
     return Math.ceil($scope.sortedProfiles.length/$scope.pageSize) || 1;
   }
 }
+
+(function gapiLoop() {
+  setTimeout(function () {
+    if (typeof unsafeWindow.gapi !== 'undefined') {
+      unsafeWindow.gapi.plus.go();
+    }
+    gapiLoop();
+  }, 1000);
+})();
