@@ -1,6 +1,9 @@
 table tr th:first-of-type, table tr td:first-of-type {
   text-align: right;
 }
+.table td {
+  vertical-align: middle;
+}
 .table-first-col {
   width: 100px;
 }

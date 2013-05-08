@@ -54,7 +54,6 @@
         <tbody id="followers">
           <tr id="follower_{{profile.id}}" ng-repeat="profile in sortedProfiles.slice((currentPage-1)*pageSize, currentPage*pageSize)">
             <td>{{profile.followers === -1 && "n/a" || profile.followers}}</td>
-            <td><a href="https://plus.google.com/u/0/{{profile.id}}/about" target="_blank">{{profile.fullName}}</a></td>
             <td><div class="g-plus" data-width="450" data-height="69" data-href="https://plus.google.com/{{profile.id}}"></div></td>
           </tr>
         </tbody>
