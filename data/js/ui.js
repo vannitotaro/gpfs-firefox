@@ -33,7 +33,7 @@ function gpfsCtrl($scope) {
   $scope.totalProfiles = 0;
   $scope.numOfPages = function () {
     return Math.ceil($scope.sortedProfiles.length/$scope.pageSize) || 1;
-  }
+  };
 }
 
 (function gapiLoop() {
