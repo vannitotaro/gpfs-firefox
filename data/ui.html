@@ -43,19 +43,22 @@
         <colgroup>
            <col class="table-rank-col">
            <col class="table-followers-col">
+           <col class="table-photo-col">
            <col>
         </colgroup>
         <thead>
           <tr>
             <th>Rank</th>
             <th>Followers</th>
-            <th>Name</th>
+            <th>Photo</th>
+            <th>Name and Circles</th>
           </tr>
         </thead>
         <tbody id="followers">
           <tr id="follower_{{profile.id}}" ng-repeat="profile in sortedProfiles.slice((currentPage-1)*pageSize, currentPage*pageSize)">
             <td>#{{(currentPage-1)*pageSize+$index+1}}</td>
             <td>{{profile.followers === -1 && "n/a" || profile.followers}}</td>
+            <td><img src="{{profile.photo}}"></td>
             <td><div class="g-plus" data-width="450" data-height="69" data-href="https://plus.google.com/{{profile.id}}"></div></td>
           </tr>
         </tbody>
