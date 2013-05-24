@@ -1,9 +1,9 @@
-table tr th:first-of-type, table tr td:first-of-type {
+table tr th:nth-of-type(2), table tr td:nth-of-type(2) {
   text-align: right;
 }
 .table td {
   vertical-align: middle;
 }
-.table-first-col {
-  width: 100px;
+.table-rank-col, .table-followers-col {
+  width: 60px;
 }
