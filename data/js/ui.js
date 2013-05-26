@@ -1,16 +1,15 @@
 function scopeApply(func) {
-  angular.element($("#container")).scope().$apply(func);
+  angular.element(document.getElementById('container')).scope().$apply(func);
 }
 
-self.port.on('numOfProfiles', function (numOfProfiles) {
-  if (numOfProfiles > 0) {
-    scopeApply(function (scope) { scope.totalProfiles = numOfProfiles; });
-    $('#step-check-logged').removeClass('icon-hand-right').addClass('icon-ok');
-    $('#step-download-list').removeClass('icon-asterisk').addClass('icon-ok');
-    $('#step-process-follower').removeClass('icon-asterisk').addClass('icon-hand-right');
-  } else {
-    $('#step-check-logged').removeClass('icon-hand-right').addClass('icon-warning-sign');
-  }
+self.port.on('totalProfiles', function (totalProfiles) {
+  scopeApply(function (scope) {
+    if (totalProfiles > 0) {
+      scope.totalProfiles = totalProfiles;
+    } else {
+      scope.loginProblem = true;
+    }
+  });
 });
 
 self.port.on('profile', function (profile) {
@@ -20,13 +19,10 @@ self.port.on('profile', function (profile) {
   });
 });
 
-self.port.on('finished', function () {
-  $('#step-process-follower').removeClass('icon-hand-right').addClass('icon-ok');
-});
-
 var app = angular.module('gpfsApp', []);
 
 function gpfsCtrl($scope) {
+  $scope.loginProblem = false;
   $scope.currentPage = 1;
   $scope.pageSize = 20;
   $scope.sortedProfiles = [];

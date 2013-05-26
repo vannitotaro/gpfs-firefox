@@ -1,9 +1,9 @@
 {
-    "name": "gpfs-firefox", 
-    "license": "MIT (http://www.opensource.org/licenses/MIT)", 
-    "author": "Giovanni Totaro (www.ingtotaro.it)", 
-    "version": "2013.05.26.1", 
-    "fullName": "gpfs-firefox", 
-    "id": "gpfs-firefox@ingtotaro.it", 
+    "name": "gpfs-firefox",
+    "license": "MIT (http://www.opensource.org/licenses/MIT)",
+    "author": "Giovanni Totaro (www.ingtotaro.it)",
+    "version": "2013.05.26.2",
+    "fullName": "gpfs-firefox",
+    "id": "gpfs-firefox@ingtotaro.it",
     "description": "Google Plus Follower Stats"
 }
