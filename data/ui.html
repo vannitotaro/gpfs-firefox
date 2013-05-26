@@ -24,21 +24,7 @@
           </li>
         </ul>
       </div>
-      <div>
-        <button ng-disabled="currentPage === 1" ng-click="currentPage = 1">
-          First
-        </button>
-        <button ng-disabled="currentPage === 1" ng-click="currentPage = currentPage-1">
-          Previous
-        </button>
-        {{currentPage}}/{{numOfPages()}}
-        <button ng-disabled="currentPage === numOfPages()" ng-click="currentPage = currentPage+1">
-          Next
-        </button>
-        <button ng-disabled="currentPage === numOfPages()" ng-click="currentPage = numOfPages()">
-          Last
-        </button>
-      </div>
+      <div ng-include src="'paging.html'"></div>
       <table class="table table-striped table-condensed">
         <colgroup>
            <col class="table-rank-col">
@@ -63,6 +49,7 @@
           </tr>
         </tbody>
       </table>
+      <div ng-include src="'paging.html'"></div>
     </div>
     <script src="https://apis.google.com/js/plusone.js">
       {parsetags: 'explicit'}
