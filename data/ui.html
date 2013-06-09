@@ -8,7 +8,7 @@
   </head>
   <body ng-app="gpfsApp">
     <div ng-controller="gpfsCtrl" class="container" id="container">
-      <div>
+      <p>
         <ul class="unstyled">
           <li ng-show="loginProblem">
             <i class="icon-warning-sign"></i>
@@ -17,17 +17,20 @@
           <li ng-show="totalProfiles > 0 && sortedProfiles.length < totalProfiles">
             <i class="icon-hand-right"></i>
             Processing follower #{{sortedProfiles.length}} of {{totalProfiles}}...
+            <span ng-show="sortedProfiles.length > 0">
+              (Remaining time: {{remainingTime()}} minutes)
+            </span>
           </li>
         </ul>
-      </div>
+      </p>
       <div ng-show="totalProfiles > 0">
         <div ng-include src="'paging.html'"></div>
         <table class="table table-striped table-condensed">
           <colgroup>
-             <col class="table-rank-col">
-             <col class="table-followers-col">
-             <col class="table-photo-col">
-             <col>
+            <col class="table-rank-col">
+            <col class="table-followers-col">
+            <col class="table-photo-col">
+            <col>
           </colgroup>
           <thead>
             <tr>
