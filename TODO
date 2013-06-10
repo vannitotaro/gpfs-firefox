@@ -1,0 +1,10 @@
+* Add author and Google+ badge
+* Change icon
+* Avoid re-click on icon
+* Check if profile request failed ([ ]captcha or [X]connection error)
+* Save data?
+* Handle tab closing and re-execution
+* Check Internet Connection
+* Jump to page
+* Show add-on version
+* asaclock sponsorship
