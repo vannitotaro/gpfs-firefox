@@ -1,4 +1,4 @@
-* Add author and Google+ badge
+* Add author photo
 * Change icon
 * Avoid re-click on icon
 * Check if profile request failed ([ ]captcha or [X]connection error)
@@ -6,5 +6,4 @@
 * Handle tab closing and re-execution
 * Check Internet Connection
 * Jump to page
-* Show add-on version
 * asaclock sponsorship

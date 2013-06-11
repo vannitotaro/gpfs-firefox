@@ -8,6 +8,10 @@
   </head>
   <body ng-app="gpfsApp">
     <div ng-controller="gpfsCtrl" class="container" id="container">
+      <h3 class="left"><img src="img/gpfs.png"> {{nameAndVersion}} by </h3>
+      <div class="g-plus" data-height="69"
+           data-href="https://plus.google.com/113250814961864918365" data-rel="author">
+      </div>
       <ul class="unstyled">
         <li ng-show="loginProblem">
           <i class="icon-warning-sign"></i>
@@ -26,7 +30,8 @@
         <p>Your followers with</p>
         <ul>
           <li ng-repeat="threshold in breakdownThresholds">
-            {{breakdownLabels[$index]}} followers: {{breakdown[$index]}} ({{breakdownPerc($index)}})
+            <strong>{{breakdownLabels[$index]}}</strong> followers:
+            {{breakdown[$index]}} (<strong>{{breakdownPerc($index)}}</strong>)
           </li>
         </ul>
         <div ng-include src="'paging.html'"></div>

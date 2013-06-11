@@ -2,6 +2,12 @@ function scopeApply(func) {
   angular.element(document.getElementById('container')).scope().$apply(func);
 }
 
+self.port.on('nameAndVersion', function (nameAndVersion) {
+  scopeApply(function (scope) {
+    scope.nameAndVersion = nameAndVersion;
+  });
+});
+
 self.port.on('totalProfiles', function (totalProfiles) {
   scopeApply(function (scope) {
     if (totalProfiles > 0) {
