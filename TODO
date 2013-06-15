@@ -1,5 +1,3 @@
-* Add author photo
-* Change icon
 * Avoid re-click on icon
 * Check if profile request failed ([ ]captcha or [X]connection error)
 * Save data?
