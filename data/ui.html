@@ -8,14 +8,13 @@
   </head>
   <body ng-app="gpfsApp">
     <div ng-controller="gpfsCtrl" class="container" id="container">
-      <h3 class="left">
-        <img src="img/gpfs.png"> {{nameAndVersion}} by
-        <img src="http://www.gravatar.com/avatar/669dba7d7f87659c2262975aafebcd7b.png?s=56">
+      <h3>
+        <img src="img/gpfs.png"> {{nameAndVersion}}
       </h3>
-      <div id="author-badge">
-        <div class="g-plus" data-height="69"
-             data-href="https://plus.google.com/113250814961864918365" data-rel="author">
-        </div>
+      <h4>Author:</h4>
+      <div class="g-person" data-width="350"
+           data-href="https://plus.google.com/113250814961864918365"
+           data-layout="landscape" data-rel="author">
       </div>
       <ul class="unstyled">
         <li ng-show="loginProblem">
@@ -44,23 +43,25 @@
           <colgroup>
             <col class="table-rank-col">
             <col class="table-followers-col">
-            <col class="table-photo-col">
             <col>
           </colgroup>
           <thead>
             <tr>
               <th>Rank</th>
               <th>Followers</th>
-              <th>Photo</th>
-              <th>Name and Circles</th>
+              <th>Photo, Name and Circles</th>
             </tr>
           </thead>
           <tbody id="followers">
             <tr id="follower_{{profile.id}}" ng-repeat="profile in sortedProfiles.slice((currentPage-1)*pageSize, currentPage*pageSize)">
               <td>#{{(currentPage-1)*pageSize+$index+1}}</td>
-              <td>{{profile.followers === -1 && 'n/a' || profile.followers}}</td>
-              <td><img src="{{profile.photo}}"></td>
-              <td><div class="g-plus" data-width="650" data-height="69" data-href="https://plus.google.com/{{profile.id}}"></div></td>
+              <td>{{profile.followers === -1 && 'n/a' || (profile.followers | number:0)}}</td>
+              <td>
+                <div class="g-person" data-width="450"
+                     data-href="https://plus.google.com/{{profile.id}}"
+                     data-layout="landscape">
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
