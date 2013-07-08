@@ -76,6 +76,7 @@ function gpfsCtrl($scope) {
   setTimeout(function () {
     if (typeof unsafeWindow.gapi !== 'undefined') {
       unsafeWindow.gapi.person.go();
+      unsafeWindow.gapi.page.go();
     }
     gapiLoop();
   }, 1000);
