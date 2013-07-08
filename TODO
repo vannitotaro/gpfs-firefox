@@ -1,7 +1,7 @@
 * Check if profile request failed ([ ]captcha or [X]connection error)
 * Save data?
-* Handle tab closing and re-execution
 * Check Internet Connection
 * Jump to page
 * asaclock sponsorship
 * Add "not affiliated with Google" disclaimer to UI
+* Pause/Resume
