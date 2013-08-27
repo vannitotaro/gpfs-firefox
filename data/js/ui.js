@@ -42,7 +42,7 @@ var app = angular.module('gpfsApp', []);
 function gpfsCtrl($scope) {
   $scope.loginProblem = false;
   $scope.currentPage = 1;
-  $scope.pageSize = 20;
+  $scope.profilesPerPage = 50;
   $scope.sortedProfiles = [];
   $scope.totalProfiles = 0;
   $scope.breakdownLabels = [
@@ -62,7 +62,7 @@ function gpfsCtrl($scope) {
     return ($scope.breakdown[i] * 100 / $scope.sortedProfiles.length).toFixed(2) + "%";
   }
   $scope.numOfPages = function () {
-    return Math.ceil($scope.sortedProfiles.length/$scope.pageSize) || 1;
+    return Math.ceil($scope.sortedProfiles.length/$scope.profilesPerPage) || 1;
   };
   $scope.remainingTime = function () {
     var profilesDone = $scope.sortedProfiles.length,
@@ -72,12 +72,3 @@ function gpfsCtrl($scope) {
   }
 }
 
-(function gapiLoop() {
-  setTimeout(function () {
-    if (typeof unsafeWindow.gapi !== 'undefined') {
-      unsafeWindow.gapi.person.go();
-      unsafeWindow.gapi.page.go();
-    }
-    gapiLoop();
-  }, 1000);
-})();

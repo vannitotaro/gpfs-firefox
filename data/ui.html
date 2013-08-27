@@ -41,30 +41,39 @@
         <div ng-include src="'paging.html'"></div>
         <table class="table table-striped table-condensed">
           <colgroup>
-            <col class="table-rank-col">
-            <col class="table-followers-col">
-            <col>
+            <col id="table-rank-col">
+            <col id="table-followers-col">
+            <col id="table-photo-col">
+            <col id="table-name-col">
+            <col id="table-circles-col">
           </colgroup>
           <thead>
             <tr>
               <th>Rank</th>
               <th>Followers</th>
-              <th>Photo, Name and Circles</th>
+              <th>Photo</th>
+              <th>Name</th>
+              <th>Circles</th>
             </tr>
           </thead>
           <tbody id="followers">
-            <tr id="follower_{{profile.id}}" ng-repeat="profile in sortedProfiles.slice((currentPage-1)*pageSize, currentPage*pageSize)">
-              <td>#{{(currentPage-1)*pageSize+$index+1}}</td>
+            <tr id="follower_{{profile.id}}" ng-repeat="profile in sortedProfiles.slice((currentPage-1)*profilesPerPage, currentPage*profilesPerPage)">
+              <td>#{{(currentPage-1)*profilesPerPage+$index+1}}</td>
               <td>{{profile.followers === -1 && 'n/a' || (profile.followers | number:0)}}</td>
+              <td><a href="https://plus.google.com/{{profile.id}}/about" target="_blank"><img src="{{profile.photo}}"></a></td>
+              <td><a href="https://plus.google.com/{{profile.id}}/posts" target="_blank">{{profile.name}}</td>
               <td>
-                <div class="g-person" data-width="450"
-                     data-href="https://plus.google.com/{{profile.id}}"
-                     data-layout="landscape">
-                </div>
-                <div class="g-page" data-width="450"
-                     data-href="https://plus.google.com/{{profile.id}}"
-                     data-layout="landscape">
-                </div>
+                <a href="https://plus.google.com/app/basic/{{profile.id}}/add"
+                   target="_blank"><span
+                  class="label"
+                  ng-class="{'label-success': profile.circles >= 1}"
+                  ng-pluralize
+                  count="profile.circles"
+                  when="{'0': 'Not in your circles',
+                         '1': 'In 1 circle',
+                         'other': 'In {} circles'}">
+                </span></a>
+                </a>
               </td>
             </tr>
           </tbody>
@@ -72,8 +81,5 @@
         <div ng-include src="'paging.html'"></div>
       </div>
     </div>
-    <script src="https://apis.google.com/js/plusone.js">
-      {parsetags: 'explicit'}
-    </script>
   </body>
 </html>

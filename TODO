@@ -1,3 +1,4 @@
+* Remove author Google+ badge and add a static one
 * Check if profile request failed ([ ]captcha or [X]connection error)
 * Save data?
 * Check Internet Connection
@@ -5,4 +6,4 @@
 * asaclock sponsorship
 * Add "not affiliated with Google" disclaimer to UI
 * Pause/Resume
-* Warning: several megabytes to download
+* Alternative (old) method when no. of followers not found in basic app

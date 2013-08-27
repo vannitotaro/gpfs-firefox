@@ -6,7 +6,11 @@ table tr th:nth-of-type(2), table tr td:nth-of-type(2) {
   vertical-align: middle;
 }
 
-.table-rank-col, .table-followers-col {
+#table-rank-col, #table-followers-col {
   width: 70px;
+}
+
+#table-photo-col {
+  width: 100px;
 }
 
