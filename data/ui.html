@@ -2,20 +2,23 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link href="css/bootstrap-2.3.1.min.css" rel="stylesheet">
+    <link href="css/bootstrap-2.3.2.min.css" rel="stylesheet">
     <link href="css/ui.css" rel="stylesheet">
     <title>Google Plus Follower Stats</title>
   </head>
   <body ng-app="gpfsApp">
     <div ng-controller="gpfsCtrl" class="container" id="container">
-      <h3>
-        <img src="img/gpfs.png"> {{nameAndVersion}}
-      </h3>
-      <h4>Hi, I'm the author. Please add me to your circles!</h4>
-      <div class="g-person" data-width="350"
-           data-href="https://plus.google.com/113250814961864918365"
-           data-layout="landscape" data-rel="author">
-      </div>
+      <h4>
+        <a href="http://www.ingtotaro.it/projects/gpfs-firefox/" target="_blank">
+          <img src="img/gpfs.png">
+          {{nameAndVersion}}
+        </a>
+        by
+        <a href="https://plus.google.com/113250814961864918365" target="_blank">
+          <img src="https://plus.google.com/s2/photos/profile/113250814961864918365?sz=90">
+          Giovanni (aka Vanni) Totaro
+        </a>
+      </h4>
       <ul class="unstyled">
         <li ng-show="loginProblem">
           <i class="icon-warning-sign"></i>
@@ -23,10 +26,10 @@
         </li>
         <li ng-show="sortedProfiles.length < totalProfiles">
           <i class="icon-hand-right"></i>
-          Processing follower #{{sortedProfiles.length + 1}}
-          of {{totalProfiles}}<span ng-show="totalProfiles > 9900"> most relevant ones</span>...
+          Processing follower <strong>#{{sortedProfiles.length + 1}}</strong>
+          of {{totalProfiles}} (Google gives only a subset of your followers)...
           <span ng-show="sortedProfiles.length > 0">
-            (Remaining time: {{remainingTime()}} minutes)
+            [Remaining time: <strong>{{remainingTime()}} minutes</strong>]
           </span>
         </li>
       </ul>
@@ -80,6 +83,8 @@
         </table>
         <div ng-include src="'paging.html'"></div>
       </div>
+      <hr>
+      <p><small>This add-on is not affiliated with, sponsored by, or endorsed by Google.</small></p>
     </div>
   </body>
 </html>
