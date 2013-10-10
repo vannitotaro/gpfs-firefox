@@ -19,24 +19,29 @@
           Giovanni (aka Vanni) Totaro
         </a>
       </h4>
-      <ul class="unstyled">
-        <li ng-show="loginProblem">
-          <i class="icon-warning-sign"></i>
-          Please check if you are logged in Google+ and re-run!
-        </li>
-        <li ng-show="!loginProblem && totalProfiles == 0">
-          <i class="icon-hand-right"></i>
-          Loading list of your followers...
-        </li>
-        <li ng-show="sortedProfiles.length < totalProfiles">
+      <p ng-show="loginProblem">
+        <i class="icon-warning-sign"></i>
+        Please check if you are logged in Google+ and re-run!
+      </p>
+      <p ng-show="!loginProblem && totalProfiles == 0">
+        <i class="icon-hand-right"></i>
+        Loading list of your followers...
+      </p>
+      <div ng-show="sortedProfiles.length < totalProfiles">
+        <p>
           <i class="icon-hand-right"></i>
           Processing follower <strong>#{{sortedProfiles.length + 1}}</strong>
-          of {{totalProfiles}} (Google gives only a subset of your followers)...
+          of {{totalProfiles}} (Google+ gives only a subset of your followers)...
           <span ng-show="sortedProfiles.length > 0">
             [Remaining time: <strong>{{remainingTime()}} minutes</strong>]
           </span>
-        </li>
-      </ul>
+        </p>
+        <p><small>
+          If the counter gets stuck click
+          <a href="https://plus.google.com" target="_blank">here</a>
+          to solve the captcha or log in again in Google+.
+        </small></p>
+      </div>
       <div ng-show="sortedProfiles.length > 0">
         <p>Your followers with</p>
         <ul>
