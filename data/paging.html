@@ -2,24 +2,36 @@
         ng-disabled="currentPage === 1"
         ng-click="$parent.currentPage = 1"
         class="btn btn-primary">
-  First
+  <span class="glyphicon glyphicon-fast-backward"></span>
 </button>
 <button type="button"
-        ng-disabled="currentPage === 1"
-        ng-click="$parent.currentPage = currentPage-1"
+        ng-disabled="currentPage - 10 < 1"
+        ng-click="$parent.currentPage = currentPage - 10"
         class="btn btn-primary">
-  Previous
+  <span class="glyphicon glyphicon-backward"></span>
+</button>
+<button type="button"
+        ng-disabled="currentPage - 1 < 1"
+        ng-click="$parent.currentPage = currentPage - 1"
+        class="btn btn-primary">
+  <span class="glyphicon glyphicon-step-backward"></span>
 </button>
 {{currentPage}}/{{numOfPages()}}
 <button type="button"
-        ng-disabled="currentPage === numOfPages()"
-        ng-click="$parent.currentPage = currentPage+1"
+        ng-disabled="currentPage + 1 > numOfPages()"
+        ng-click="$parent.currentPage = currentPage + 1"
         class="btn btn-primary">
-  Next
+  <span class="glyphicon glyphicon-step-forward"></span>
+</button>
+<button type="button"
+        ng-disabled="currentPage + 10 > numOfPages()"
+        ng-click="$parent.currentPage = currentPage + 10"
+        class="btn btn-primary">
+  <span class="glyphicon glyphicon-forward"></span>
 </button>
 <button type="button"
         ng-disabled="currentPage === numOfPages()"
         ng-click="$parent.currentPage = numOfPages()"
         class="btn btn-primary">
-  Last
+  <span class="glyphicon glyphicon-fast-forward"></span>
 </button>
