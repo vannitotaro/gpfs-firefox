@@ -24,6 +24,10 @@
           <i class="icon-warning-sign"></i>
           Please check if you are logged in Google+ and re-run!
         </li>
+        <li ng-show="!loginProblem && totalProfiles == 0">
+          <i class="icon-hand-right"></i>
+          Loading list of your followers...
+        </li>
         <li ng-show="sortedProfiles.length < totalProfiles">
           <i class="icon-hand-right"></i>
           Processing follower <strong>#{{sortedProfiles.length + 1}}</strong>
@@ -63,7 +67,7 @@
             <tr id="follower_{{profile.id}}" ng-repeat="profile in sortedProfiles.slice((currentPage-1)*profilesPerPage, currentPage*profilesPerPage)">
               <td>#{{(currentPage-1)*profilesPerPage+$index+1}}</td>
               <td>{{profile.followers === -1 && 'n/a' || (profile.followers | number:0)}}</td>
-              <td><a href="https://plus.google.com/{{profile.id}}/about" target="_blank"><img src="{{profile.photo}}"></a></td>
+              <td><a href="https://plus.google.com/{{profile.id}}/about" target="_blank"><img src="https://plus.google.com/s2/photos/profile/{{profile.id}}?sz=90"></a></td>
               <td><a href="https://plus.google.com/{{profile.id}}/posts" target="_blank">{{profile.name}}</td>
               <td>
                 <a href="https://plus.google.com/app/basic/{{profile.id}}/add"
@@ -71,10 +75,10 @@
                   class="label"
                   ng-class="{'label-success': profile.circles >= 1}"
                   ng-pluralize
-                  count="profile.circles"
-                  when="{'0': 'Not in your circles',
-                         '1': 'In 1 circle',
-                         'other': 'In {} circles'}">
+                    count="profile.circles"
+                    when="{'0': 'Not in your circles',
+                           '1': 'In 1 circle',
+                           'other': 'In {} circles'}">
                 </span></a>
                 </a>
               </td>
