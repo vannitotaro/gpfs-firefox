@@ -53,11 +53,10 @@ function gpfsCtrl($scope) {
     '100 ÷ 999',
     '10 ÷ 99',
     '1 ÷ 9',
-    'no',
-    'n/a'
+    '0 or n/a'
   ]
-  $scope.breakdownThresholds = [1000000, 100000, 10000, 1000, 100, 10, 1, 0, -1];
-  $scope.breakdown = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  $scope.breakdownThresholds = [1000000, 100000, 10000, 1000, 100, 10, 1, -1];
+  $scope.breakdown = [0, 0, 0, 0, 0, 0, 0, 0];
   $scope.breakdownPerc = function (i) {
     return ($scope.breakdown[i] * 100 / $scope.sortedProfiles.length).toFixed(2) + "%";
   }
