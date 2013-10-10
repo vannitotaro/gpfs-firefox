@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link href="css/bootstrap-2.3.2.min.css" rel="stylesheet">
+    <link href="css/bootstrap-3.0.0.min.css" rel="stylesheet">
     <link href="css/ui.css" rel="stylesheet">
     <title>Google Plus Follower Stats</title>
   </head>
@@ -15,21 +15,23 @@
         </a>
         by
         <a href="https://plus.google.com/113250814961864918365" target="_blank">
-          <img src="https://plus.google.com/s2/photos/profile/113250814961864918365?sz=90">
+          <img src="https://plus.google.com/s2/photos/profile/113250814961864918365?sz=64">
           Giovanni (aka Vanni) Totaro
         </a>
       </h4>
       <p ng-show="loginProblem">
-        <i class="icon-warning-sign"></i>
-        Please check if you are logged in Google+ and re-run!
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        Please <a href="https://plus.google.com" target="_blank">check</a>
+        if you are logged in Google+, close this tab
+        and run Google Plus Follower Stats again.
       </p>
       <p ng-show="!loginProblem && totalProfiles == 0">
-        <i class="icon-hand-right"></i>
+        <span class="glyphicon glyphicon-hand-right"></span>
         Loading list of your followers...
       </p>
       <div ng-show="sortedProfiles.length < totalProfiles">
         <p>
-          <i class="icon-hand-right"></i>
+          <span class="glyphicon glyphicon-hand-right"></span>
           Processing follower <strong>#{{sortedProfiles.length + 1}}</strong>
           of {{totalProfiles}} (Google+ gives only a subset of your followers)...
           <span ng-show="sortedProfiles.length > 0">
@@ -51,7 +53,7 @@
           </li>
         </ul>
         <div ng-include src="'paging.html'"></div>
-        <table class="table table-striped table-condensed">
+        <table class="table table-striped table-condensed" id="table">
           <colgroup>
             <col id="table-rank-col">
             <col id="table-followers-col">
@@ -69,17 +71,18 @@
             </tr>
           </thead>
           <tbody id="followers">
-            <tr id="follower_{{profile.id}}" ng-repeat="profile in sortedProfiles.slice((currentPage-1)*profilesPerPage, currentPage*profilesPerPage)">
+            <tr id="follower_{{profile.id}}"
+                ng-repeat="profile in sortedProfiles.slice((currentPage-1)*profilesPerPage, currentPage*profilesPerPage)">
               <td>#{{(currentPage-1)*profilesPerPage+$index+1}}</td>
               <td>{{profile.followers === -1 && '0 or n/a' || (profile.followers | number:0)}}</td>
               <td><a href="https://plus.google.com/{{profile.id}}/about" target="_blank"><img
-                src="https://plus.google.com/s2/photos/profile/{{profile.id}}?sz=90"></a></td>
+                src="https://plus.google.com/s2/photos/profile/{{profile.id}}?sz=64"></a></td>
               <td><a href="https://plus.google.com/{{profile.id}}/posts" target="_blank">{{profile.name}}</td>
               <td>
                 <a href="https://plus.google.com/app/basic/{{profile.id}}/add"
                    target="_blank"><span
                   class="label"
-                  ng-class="{'label-success': profile.circles >= 1}"
+                  ng-class="profile.circles >= 1 && 'label-success' || 'label-default'"
                   ng-pluralize
                     count="profile.circles"
                     when="{'0': 'Not in your circles',

@@ -1,13 +1,25 @@
-<button ng-disabled="currentPage === 1" ng-click="$parent.currentPage = 1">
+<button type="button"
+        ng-disabled="currentPage === 1"
+        ng-click="$parent.currentPage = 1"
+        class="btn btn-primary">
   First
 </button>
-<button ng-disabled="currentPage === 1" ng-click="$parent.currentPage = currentPage-1">
+<button type="button"
+        ng-disabled="currentPage === 1"
+        ng-click="$parent.currentPage = currentPage-1"
+        class="btn btn-primary">
   Previous
 </button>
 {{currentPage}}/{{numOfPages()}}
-<button ng-disabled="currentPage === numOfPages()" ng-click="$parent.currentPage = currentPage+1">
+<button type="button"
+        ng-disabled="currentPage === numOfPages()"
+        ng-click="$parent.currentPage = currentPage+1"
+        class="btn btn-primary">
   Next
 </button>
-<button ng-disabled="currentPage === numOfPages()" ng-click="$parent.currentPage = numOfPages()">
+<button type="button"
+        ng-disabled="currentPage === numOfPages()"
+        ng-click="$parent.currentPage = numOfPages()"
+        class="btn btn-primary">
   Last
 </button>
