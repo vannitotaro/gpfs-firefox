@@ -1,7 +1,7 @@
+* Fix regex followers full app
 * Check if profile request failed ([ ]captcha or [X]connection error)
 * Check Internet Connection
 * Jump to page
 * asaclock sponsorship
 * Add "not affiliated with Google" disclaimer to UI
 * Pause/Resume
-* Alternative (old) method when no. of followers not found in basic app
