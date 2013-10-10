@@ -67,7 +67,8 @@
             <tr id="follower_{{profile.id}}" ng-repeat="profile in sortedProfiles.slice((currentPage-1)*profilesPerPage, currentPage*profilesPerPage)">
               <td>#{{(currentPage-1)*profilesPerPage+$index+1}}</td>
               <td>{{profile.followers === -1 && 'n/a' || (profile.followers | number:0)}}</td>
-              <td><a href="https://plus.google.com/{{profile.id}}/about" target="_blank"><img src="https://plus.google.com/s2/photos/profile/{{profile.id}}?sz=90"></a></td>
+              <td><a href="https://plus.google.com/{{profile.id}}/about" target="_blank"><img
+                src="https://plus.google.com/s2/photos/profile/{{profile.id}}?sz=90"></a></td>
               <td><a href="https://plus.google.com/{{profile.id}}/posts" target="_blank">{{profile.name}}</td>
               <td>
                 <a href="https://plus.google.com/app/basic/{{profile.id}}/add"
