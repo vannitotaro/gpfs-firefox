@@ -10,12 +10,8 @@ self.port.on('nameAndVersion', function (nameAndVersion) {
 
 self.port.on('totalProfiles', function (totalProfiles) {
   scopeApply(function (scope) {
-    if (totalProfiles > 0) {
-      scope.totalProfiles = totalProfiles;
-      scope.timeZero = new Date();
-    } else {
-      scope.loginProblem = true;
-    }
+    scope.totalProfiles = totalProfiles;
+    scope.timeZero = new Date();
   });
 });
 
@@ -40,7 +36,6 @@ self.port.on('profile', function (profile) {
 var app = angular.module('gpfsApp', []);
 
 function gpfsCtrl($scope) {
-  $scope.loginProblem = false;
   $scope.currentPage = 1;
   $scope.profilesPerPage = 50;
   $scope.sortedProfiles = [];

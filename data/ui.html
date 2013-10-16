@@ -24,15 +24,9 @@
         Google+ UI updates. Should it happen, I'll try to publish a new version
         as soon as possible! :)
       </div>
-      <p ng-show="loginProblem">
-        <span class="glyphicon glyphicon-warning-sign"></span>
-        Please <a href="https://plus.google.com" target="_blank">check</a>
-        if you are logged in Google+, close this tab
-        and run Google Plus Follower Stats again.
-      </p>
-      <p ng-show="!loginProblem && totalProfiles == 0">
+      <p ng-show="totalProfiles == 0">
         <span class="glyphicon glyphicon-hand-right"></span>
-        Loading list of your followers...
+        Loading list of your followers... (it should take less than one minute)
       </p>
       <div ng-show="sortedProfiles.length < totalProfiles">
         <p>
@@ -50,12 +44,12 @@
             [Remaining time: <strong>{{remainingTime()}} minutes</strong>]
           </span>
         </p>
-        <p><small>
-          If the counter gets stuck click
-          <a href="https://plus.google.com" target="_blank">here</a>
-          to solve the captcha or to log again in Google+.
-        </small></p>
       </div>
+      <p><small>
+        If the progress gets stuck click
+        <a href="https://plus.google.com" target="_blank">here</a>
+        to log in Google+ or solve the captcha.
+      </small></p>
       <div ng-show="sortedProfiles.length > 0">
         <div class="row">
           <div class="col-md-8">
