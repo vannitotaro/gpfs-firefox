@@ -31,6 +31,12 @@
       </p>
       <div ng-show="sortedProfiles.length < totalProfiles">
         <p>
+          <button type="button"
+                  ng-click="togglePauseResume()"
+                  class="btn btn-primary">
+            <span class="glyphicon"
+                  ng-class="processing && 'glyphicon-pause' || 'glyphicon-play'"></span>
+          </button>
           <span class="glyphicon glyphicon-hand-right"></span>
           Processing follower <strong>#{{sortedProfiles.length + 1}}</strong>
           of {{totalProfiles}} (Google+ gives only a subset of your followers)...

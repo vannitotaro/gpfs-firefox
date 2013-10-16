@@ -45,6 +45,7 @@ function gpfsCtrl($scope) {
   $scope.profilesPerPage = 50;
   $scope.sortedProfiles = [];
   $scope.totalProfiles = 0;
+  $scope.processing = true;
   $scope.breakdownLabels = [
     'at least 1,000,000',
     '100,000 ÷ 999,999',
@@ -68,6 +69,17 @@ function gpfsCtrl($scope) {
         avgTimePerProfile = ($scope.timeLatest - $scope.timeZero) / profilesDone,
         profilesToDo = $scope.totalProfiles - profilesDone;
     return Math.ceil(profilesToDo * avgTimePerProfile / 60000); // Minutes
+  }
+  $scope.togglePauseResume = function () {
+    var elapsedTimeInPause;
+    self.port.emit("togglePauseResume");
+    $scope.processing = !$scope.processing;
+    if (!$scope.processing) {
+      $scope.timePause = new Date();
+    } else {
+      elapsedTimeInPause = new Date() - $scope.timePause;
+      $scope.timeZero = new Date($scope.timeZero.getTime() + elapsedTimeInPause);
+    }
   }
 }
 
