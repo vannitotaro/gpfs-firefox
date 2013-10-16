@@ -78,7 +78,7 @@
                   <td>{{profile.followers === -1 && '0 or n/a' || (profile.followers | number:0)}}</td>
                   <td><a href="https://plus.google.com/{{profile.id}}/about" target="_blank"><img
                     src="https://plus.google.com/s2/photos/profile/{{profile.id}}?sz=64"></a></td>
-                  <td><a href="https://plus.google.com/{{profile.id}}/posts" target="_blank">{{profile.name}}</td>
+                  <td><a href="https://plus.google.com/{{profile.id}}/posts" target="_blank">{{profile.name}}</a></td>
                   <td>
                     <a href="https://plus.google.com/app/basic/{{profile.id}}/add"
                        target="_blank"><span
@@ -90,7 +90,6 @@
                                '1': 'In 1 circle',
                                'other': 'In {} circles'}">
                     </span></a>
-                    </a>
                   </td>
                 </tr>
               </tbody>
