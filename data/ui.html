@@ -33,7 +33,8 @@
         <p>
           <button type="button"
                   ng-click="togglePauseResume()"
-                  class="btn btn-primary">
+                  class="btn btn-primary"
+                  title="{{processing && 'Pause' || 'Resume'}}">
             <span class="glyphicon"
                   ng-class="processing && 'glyphicon-pause' || 'glyphicon-play'"></span>
           </button>
