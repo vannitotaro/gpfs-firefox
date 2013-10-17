@@ -44,6 +44,26 @@
             [Remaining time: <strong>{{remainingTime()}} minutes</strong>]
           </span>
         </p>
+        <p>
+          <button type="button"
+                  ng-click="speedDown()"
+                  ng-disabled="maxParsers === 1"
+                  class="btn btn-primary"
+                  title="Speed down processing">
+            <span class="glyphicon glyphicon-minus"></span>
+          </button>
+          Processing speed ({{maxParsers}}x)
+          <button type="button"
+                  ng-click="speedUp()"
+                  ng-disabled="maxParsers === 32"
+                  class="btn btn-primary"
+                  title="Speed up processing">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+          <span class="alert alert-warning">
+            High speed values could lead to Google temporarily blocking your IP from using their services. I warned you!
+          </span>
+        </p>
       </div>
       <p><small>
         If the progress gets stuck click

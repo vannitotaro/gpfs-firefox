@@ -41,6 +41,7 @@ function gpfsCtrl($scope) {
   $scope.sortedProfiles = [];
   $scope.totalProfiles = 0;
   $scope.processing = true;
+  $scope.maxParsers = 4;
   $scope.breakdownLabels = [
     'at least 1,000,000',
     '100,000 ÷ 999,999',
@@ -67,7 +68,7 @@ function gpfsCtrl($scope) {
   }
   $scope.togglePauseResume = function () {
     var elapsedTimeInPause;
-    self.port.emit("togglePauseResume");
+    self.port.emit('togglePauseResume');
     $scope.processing = !$scope.processing;
     if (!$scope.processing) {
       $scope.timePause = new Date();
@@ -75,6 +76,14 @@ function gpfsCtrl($scope) {
       elapsedTimeInPause = new Date() - $scope.timePause;
       $scope.timeZero = new Date($scope.timeZero.getTime() + elapsedTimeInPause);
     }
+  }
+  $scope.speedDown = function () {
+    $scope.maxParsers /= 2;
+    self.port.emit('maxParsers', $scope.maxParsers);
+  }
+  $scope.speedUp = function () {
+    $scope.maxParsers *= 2;
+    self.port.emit('maxParsers', $scope.maxParsers);
   }
 }
 
