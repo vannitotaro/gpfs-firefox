@@ -1,45 +1,64 @@
-function scopeApply(func) {
-  angular.element(document.getElementById('container')).scope().$apply(func);
+function getScope() {
+  return angular.element(document.getElementById('container')).scope();
 }
 
+// Periodic UI refresh while processing profiles
+function refreshUI() {
+  window.setTimeout(function () {
+    var scope = getScope(),
+        completed = (scope.sortedProfiles.length === scope.totalProfiles);
+    if (scope.processing || completed) {
+      scope.$apply();
+    }
+    if (!completed) {
+      refreshUI();
+    }
+  }, 5000);
+};
+
 self.port.on('nameAndVersion', function (nameAndVersion) {
-  scopeApply(function (scope) {
+  getScope().$apply(function (scope) {
     scope.nameAndVersion = nameAndVersion;
   });
 });
 
 self.port.on('totalProfiles', function (totalProfiles) {
-  scopeApply(function (scope) {
+  getScope().$apply(function (scope) {
     scope.totalProfiles = totalProfiles;
     scope.timeZero = new Date();
   });
+  refreshUI(); // Start periodic UI refresh
 });
 
-self.port.on('profile', function (profile) {
-  scopeApply(function (scope) {
-    var threshold,
-        j,
-        pf = profile.followers,
-        i = _.sortedIndex(scope.sortedProfiles, profile,
-                          function (p) {return -p.followers;});
-    scope.sortedProfiles.splice(i, 0, profile);
-    for (j = 0; j < scope.breakdownThresholds.length; j++) {
-      if (pf >= scope.breakdownThresholds[j]) {
-        scope.breakdown[j]++;
-        break;
-      }
+self.port.on('profile', function (profile, fromCache) {
+  var threshold,
+      j,
+      scope = getScope(),
+      pf = profile.followers,
+      i = _.sortedIndex(scope.sortedProfiles, profile,
+                        function (p) {return -p.followers;});
+  scope.sortedProfiles.splice(i, 0, profile);
+  for (j = 0; j < scope.breakdownThresholds.length; j++) {
+    if (pf >= scope.breakdownThresholds[j]) {
+      scope.breakdown[j]++;
+      break;
     }
+  }
+  if (fromCache) {
+    scope.profilesFromCache++;
+  } else {
     scope.timeLatest = new Date();
-  });
+  }
 });
 
 var app = angular.module('gpfsApp', []);
 
-function gpfsCtrl($scope) {
+function gpfsCtrl($scope, $timeout) {
   $scope.currentPage = 1;
   $scope.profilesPerPage = 50;
   $scope.sortedProfiles = [];
   $scope.totalProfiles = 0;
+  $scope.profilesFromCache = 0;
   $scope.processing = true;
   $scope.maxParsers = 4;
   $scope.breakdownLabels = [
@@ -62,7 +81,8 @@ function gpfsCtrl($scope) {
   };
   $scope.remainingTime = function () {
     var profilesDone = $scope.sortedProfiles.length,
-        avgTimePerProfile = ($scope.timeLatest - $scope.timeZero) / profilesDone,
+        avgTimePerProfile = ($scope.timeLatest - $scope.timeZero) /
+                            (profilesDone - $scope.profilesFromCache),
         profilesToDo = $scope.totalProfiles - profilesDone;
     return Math.ceil(profilesToDo * avgTimePerProfile / 60000); // Minutes
   }
@@ -86,4 +106,5 @@ function gpfsCtrl($scope) {
     self.port.emit('maxParsers', $scope.maxParsers);
   }
 }
+
 

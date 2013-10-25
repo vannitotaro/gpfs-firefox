@@ -40,8 +40,14 @@
           <span class="glyphicon glyphicon-hand-right"></span>
           Processing follower <strong>#{{sortedProfiles.length + 1}}</strong>
           of {{totalProfiles}} (Google+ gives only a subset of your followers)...
-          <span ng-show="sortedProfiles.length > 0">
-            [Remaining time: <strong>{{remainingTime()}} minutes</strong>]
+          <span ng-show="sortedProfiles.length - profilesFromCache > 0">
+            <span ng-show="processing">
+              [Remaining time: <strong ng-pluralize
+                                         count="remainingTime()"
+                                         when="{'1': 'less than one minute',
+                                                'other': '{} minutes'}"></strong>]
+            </span>
+            <span ng-show="!processing">[PAUSED]</span>
           </span>
         </p>
         <p>
@@ -65,7 +71,7 @@
           </span>
         </p>
       </div>
-      <p><small>
+      <p ng-hide="totalProfiles > 0 && sortedProfiles.length === totalProfiles"><small>
         If the progress gets stuck click
         <a href="https://plus.google.com" target="_blank">here</a>
         to log in Google+ or solve the captcha.
