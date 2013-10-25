@@ -19,11 +19,6 @@
           Giovanni (aka Vanni) Totaro
         </a>
       </h4>
-      <div class="alert alert-warning">
-        Please note that this add-on could stop working at any time because of
-        Google+ UI updates. Should it happen, I'll try to publish a new version
-        as soon as possible! :)
-      </div>
       <p ng-show="totalProfiles == 0">
         <span class="glyphicon glyphicon-hand-right"></span>
         Loading list of your followers... (it should take less than one minute)
@@ -58,7 +53,7 @@
                   title="Speed down processing">
             <span class="glyphicon glyphicon-minus"></span>
           </button>
-          Processing speed ({{maxParsers}}x)
+          Processing speed (1x÷32x): {{maxParsers}}x
           <button type="button"
                   ng-click="speedUp()"
                   ng-disabled="maxParsers === 32"
@@ -144,6 +139,11 @@
         </div>
       </div>
       <hr>
+      <div class="alert alert-info">
+        Please note that this add-on could stop working at any time because of
+        Google+ UI updates. Should it happen, I'll try to publish a new version
+        as soon as possible! :)
+      </div>
       <p><small>
         This add-on is not affiliated with, sponsored by, or endorsed by Google.
         License: <a href="http://www.opensource.org/licenses/MIT" target="_blank">MIT</a>.

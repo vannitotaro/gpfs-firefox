@@ -1,5 +1,6 @@
 #google-alert {
   display: inline-block;
+  margin-bottom: 0;
 }
 
 #table th:nth-of-type(2), #table td:nth-of-type(2) {
