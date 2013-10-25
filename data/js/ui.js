@@ -25,7 +25,7 @@ self.port.on('nameAndVersion', function (nameAndVersion) {
 self.port.on('totalProfiles', function (totalProfiles) {
   getScope().$apply(function (scope) {
     scope.totalProfiles = totalProfiles;
-    scope.timeZero = new Date();
+    scope.timeZero = Date.now();
   });
   refreshUI(); // Start periodic UI refresh
 });
@@ -47,7 +47,7 @@ self.port.on('profile', function (profile, fromCache) {
   if (fromCache) {
     scope.profilesFromCache++;
   } else {
-    scope.timeLatest = new Date();
+    scope.timeLatest = Date.now();
   }
 });
 
@@ -87,14 +87,12 @@ function gpfsCtrl($scope, $timeout) {
     return Math.ceil(profilesToDo * avgTimePerProfile / 60000); // Minutes
   }
   $scope.togglePauseResume = function () {
-    var elapsedTimeInPause;
     self.port.emit('togglePauseResume');
     $scope.processing = !$scope.processing;
     if (!$scope.processing) {
-      $scope.timePause = new Date();
+      $scope.timePause = Date.now();
     } else {
-      elapsedTimeInPause = new Date() - $scope.timePause;
-      $scope.timeZero = new Date($scope.timeZero.getTime() + elapsedTimeInPause);
+      $scope.timeZero += Date.now() - $scope.timePause;
     }
   }
   $scope.speedDown = function () {
