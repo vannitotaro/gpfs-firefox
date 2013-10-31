@@ -55,11 +55,10 @@
                 src="http://www.ingtotaro.it/projects/gpfs-firefox/badge.html#113250814961864918365">
         </iframe>
       </h4>
-      <p ng-show="totalProfiles == 0">
-        <span class="glyphicon glyphicon-hand-right"></span>
-        Loading list of your followers... (it should take less than one minute)
-      </p>
-      <div ng-show="sortedProfiles.length < totalProfiles">
+      <div class="alert alert-success">
+        <span class="glyphicon glyphicon-hand-right"></span> {{statusMessage}}
+      </div>
+      <div ng-show="status === 'Google'">
         <p>
           <button type="button"
                   ng-click="togglePauseResume()"
@@ -68,10 +67,9 @@
             <span class="glyphicon"
                   ng-class="processing && 'glyphicon-pause' || 'glyphicon-play'"></span>
           </button>
-          <span class="glyphicon glyphicon-hand-right"></span>
           Processing follower <strong>#{{sortedProfiles.length + 1}}</strong>
           of {{totalProfiles}} (Google+ gives only a subset of your followers)...
-          <span ng-show="sortedProfiles.length - profilesFromCache > 0 && processing">
+          <span ng-show="processing && timeZero && timeLatest">
             <span class="label label-info big-label">Remaining time: {{remainingTime()}}</span>
           </span>
           <span ng-show="!processing" class="label label-warning big-label">PAUSED</span>
@@ -98,10 +96,10 @@
           </span>
         </p>
       </div>
-      <p ng-hide="totalProfiles > 0 && sortedProfiles.length === totalProfiles"><small>
+      <p ng-hide="status === 'Completed'"><small>
         If the progress gets stuck click
         <a href="https://plus.google.com" target="_blank">here</a>
-        to log in to Google+ or solve the captcha.
+        to log in to Google+ or to solve the captcha.
       </small></p>
       <div ng-show="sortedProfiles.length > 0">
         <div class="row">
@@ -136,7 +134,7 @@
           <div class="col-md-4">
             <p>
               Sponsored by
-              <a href="http://www.asaclock.com/?utm_source=gpfsfirefox&utm_medium=addon&utm_campaign=cs2013"
+              <a href="http://www.asaclock.com/?utm_source=gpfsfirefox&amp;utm_medium=addon&amp;utm_campaign=cs2013"
                  target="_blank">
                 <img src="img/asaclock.png">
                 an elite <strong>anti-procrastination community</strong>
@@ -157,7 +155,7 @@
       <hr>
       <div class="alert alert-info">
         Please note that this add-on could stop working at any time because of
-        Google+ UI updates. Should it happen, I'll try to publish a new version
+        Google+ updates. Should it happen, I'll try to publish a new version
         as soon as possible! :)
       </div>
       <p><small>

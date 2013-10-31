@@ -19,7 +19,7 @@
         title="Previous page">
   <span class="glyphicon glyphicon-step-backward"></span>
 </button>
-{{currentPage}}/{{numOfPages()}}
+Page {{currentPage}} of {{numOfPages()}}
 <button type="button"
         ng-disabled="currentPage + 1 > numOfPages()"
         ng-click="$parent.currentPage = currentPage + 1"

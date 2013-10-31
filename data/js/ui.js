@@ -24,15 +24,24 @@ self.port.on('nameAndVersion', function (nameAndVersion) {
   });
 });
 
+self.port.on('status', function (status, msg) {
+  getScope().$apply(function (scope) {
+    scope.status = status;
+    scope.statusMessage = msg;
+    if (status === 'Google') {
+      scope.timeZero = Date.now();
+    }
+  });
+});
+
 self.port.on('totalProfiles', function (totalProfiles) {
   getScope().$apply(function (scope) {
     scope.totalProfiles = totalProfiles;
-    scope.timeZero = Date.now();
   });
   refreshUI(); // Start periodic UI refresh
 });
 
-self.port.on('profile', function (profile, fromCache) {
+self.port.on('profile', function (profile, fromScraping) {
   var threshold,
       j,
       scope = getScope(),
@@ -47,10 +56,10 @@ self.port.on('profile', function (profile, fromCache) {
       break;
     }
   }
-  if (fromCache) {
-    scope.profilesFromCache++;
-  } else {
+  if (fromScraping) {
     scope.timeLatest = Date.now();
+  } else {
+    scope.profilesNotFromScraping++;
   }
 });
 
@@ -64,11 +73,13 @@ var app = angular.module('gpfsApp', []).config(
 );
 
 function gpfsCtrl($scope, $timeout) {
+  $scope.status = '';
+  $scope.statusMessage = '';
   $scope.currentPage = 1;
   $scope.profilesPerPage = 30;
   $scope.sortedProfiles = [];
   $scope.totalProfiles = 0;
-  $scope.profilesFromCache = 0;
+  $scope.profilesNotFromScraping = 0;
   $scope.processing = true;
   $scope.maxParsers = 4;
   $scope.breakdownLabels = [
@@ -93,16 +104,16 @@ function gpfsCtrl($scope, $timeout) {
     var remaining,
         profilesDone = $scope.sortedProfiles.length,
         avgTimePerProfile = ($scope.timeLatest - $scope.timeZero) /
-                            (profilesDone - $scope.profilesFromCache),
+                            (profilesDone - $scope.profilesNotFromScraping),
         profilesToDo = $scope.totalProfiles - profilesDone,
         remainingMinutes = Math.ceil(profilesToDo * avgTimePerProfile / 60000);
-        if (remainingMinutes === 1) {
-          remaining = 'less than one minute';
-        } else if (remainingMinutes <= 60) {
-          remaining = remainingMinutes + ' minutes';
-        } else {
-          remaining = 'less than ' + Math.ceil(remainingMinutes / 60) + ' hours';
-        }
+    if (remainingMinutes === 1) {
+      remaining = 'less than one minute';
+    } else if (remainingMinutes <= 60) {
+      remaining = remainingMinutes + ' minutes';
+    } else {
+      remaining = 'less than ' + Math.ceil(remainingMinutes / 60) + ' hours';
+    }
     return remaining;
   }
   $scope.togglePauseResume = function () {
