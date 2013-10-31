@@ -175,13 +175,29 @@
             <div ng-include src="'paging.html'"></div>
           </div>
           <div class="col-md-4">
-            <p>Your followers with</p>
-            <ul>
-              <li ng-repeat="threshold in breakdownThresholds">
-                <strong>{{breakdownLabels[$index]}}</strong> followers:
-                {{breakdown[$index]}} (<strong>{{breakdownPerc($index)}}</strong>)
-              </li>
-            </ul>
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h4>Follower Breakdown</h4>
+              </div>
+              <div class="panel-body">
+                <table class="table table-striped table-condensed" id="stats">
+                  <thead>
+                    <tr>
+                      <th># of your followers</th>
+                      <th>(in %)</th>
+                      <th>who have [...] followers</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="threshold in breakdownThresholds">
+                      <td>{{breakdown[$index]}}</td>
+                      <td>{{breakdownPerc($index)}}</td>
+                      <td>{{breakdownLabels[$index]}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -193,6 +209,7 @@
       </div>
       <p><small>
         This add-on is not affiliated with, sponsored by, or endorsed by Google.
+        <a href="https://github.com/vannitotaro/gpfs-firefox" target="_blank">Source code</a> on GitHub.
         License: <a href="http://www.opensource.org/licenses/MIT" target="_blank">MIT</a>.
         Copyright 2013 <a href="http://www.ingtotaro.it" target="_blank">Giovanni Totaro</a>.
         Version <span class="label label-info big-label">{{version}}</span>
