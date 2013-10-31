@@ -94,9 +94,8 @@
           </button>
           Processing follower <strong>#{{sortedProfiles.length + 1}}</strong>
           of {{totalProfiles}} (Google+ gives only a subset of your followers)...
-          <span ng-show="processing && timeZero && timeLatest">
-            <span class="label label-info big-label">Remaining time: {{remainingTime()}}</span>
-          </span>
+          <span ng-show="processing && timeZero && timeLatest"
+                class="label label-info big-label">Remaining time: {{remainingTime()}}</span>
           <span ng-show="!processing" class="label label-warning big-label">PAUSED</span>
         </p>
         <p>
