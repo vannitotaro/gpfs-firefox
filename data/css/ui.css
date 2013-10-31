@@ -11,7 +11,24 @@
   vertical-align: middle;
 }
 
-#table-rank-col, #table-followers-col, #table-photo-col {
+#table-rank-col, #table-followers-col {
   width: 70px;
 }
 
+#author-badge {
+  vertical-align: middle;
+}
+
+.google-plus-badge {
+  display: inline-block;
+  vertical-align: top;
+  border: 0;
+  width: 430px;
+  height: 130px;
+  transition: background-color 0.5s, height 0.5s;
+}
+
+.google-plus-badge:hover {
+  background-color: rgb(100, 100, 100);
+  height: 260px;
+}

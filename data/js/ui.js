@@ -1,3 +1,5 @@
+var BADGE_URL = 'http://www.ingtotaro.it/projects/gpfs-firefox/badge.html#';
+
 function getScope() {
   return angular.element(document.getElementById('container')).scope();
 }
@@ -37,6 +39,7 @@ self.port.on('profile', function (profile, fromCache) {
       pf = profile.followers,
       i = _.sortedIndex(scope.sortedProfiles, profile,
                         function (p) {return -p.followers;});
+  profile.badge = BADGE_URL + profile.id;
   scope.sortedProfiles.splice(i, 0, profile);
   for (j = 0; j < scope.breakdownThresholds.length; j++) {
     if (pf >= scope.breakdownThresholds[j]) {
@@ -51,11 +54,18 @@ self.port.on('profile', function (profile, fromCache) {
   }
 });
 
-var app = angular.module('gpfsApp', []);
+var app = angular.module('gpfsApp', []).config(
+  function($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+      'self',
+      BADGE_URL + '**'
+    ]);
+  }
+);
 
 function gpfsCtrl($scope, $timeout) {
   $scope.currentPage = 1;
-  $scope.profilesPerPage = 50;
+  $scope.profilesPerPage = 30;
   $scope.sortedProfiles = [];
   $scope.totalProfiles = 0;
   $scope.profilesFromCache = 0;

@@ -13,11 +13,47 @@
           <img src="img/gpfs.png">
           {{nameAndVersion}}
         </a>
+      </h4>
+      <h4>
         by
-        <a href="https://plus.google.com/113250814961864918365" target="_blank">
-          <img src="https://plus.google.com/s2/photos/profile/113250814961864918365?sz=64">
-          Giovanni (aka Vanni) Totaro
-        </a>
+        <!--
+          Google+ Badges don't work with resource:// protocol.
+
+          To overcome this limitation, a static external page
+          served over http:// protocol by the gpfs-firefox official website
+          (currently hosted on GitHub Pages) at URL
+          http://www.ingtotaro.it/projects/gpfs-firefox/badge.html
+          is rendered inside an iframe to show author's and followers' badges.
+          No user data is stored on the server.
+
+          The source code of the external page is as follows:
+
+          <!doctype html>
+          <html>
+            <body>
+              <div style="position: absolute; top: 57px; z-index: -1;
+                          font-family: sans-serif; font-size: 14px; color: silver;">
+                Loading Google+ badge...
+              </div>
+              <div class="g-person" id="badge-person" data-layout="landscape" data-width="400"></div>
+              <div class="g-page" id="badge-page" data-layout="landscape" data-width="400"></div>
+              <script type="text/javascript" src="http://apis.google.com/js/plusone.js">
+                {parsetags: 'explicit'}
+              </script>
+              <script type="text/javascript">
+                var profileID = "http://plus.google.com/" + window.location.hash.slice(1);
+                document.getElementById('badge-person').dataset.href = profileID;
+                document.getElementById('badge-page').dataset.href = profileID;
+                gapi.person.go();
+                gapi.page.go();
+              </script>
+            </body>
+          </html>
+
+        -->
+        <iframe class="google-plus-badge" id="author-badge"
+                src="http://www.ingtotaro.it/projects/gpfs-firefox/badge.html#113250814961864918365">
+        </iframe>
       </h4>
       <p ng-show="totalProfiles == 0">
         <span class="glyphicon glyphicon-hand-right"></span>
@@ -79,39 +115,23 @@
               <colgroup>
                 <col id="table-rank-col">
                 <col id="table-followers-col">
-                <col id="table-photo-col">
-                <col id="table-name-col">
-                <col id="table-circles-col">
+                <col>
               </colgroup>
               <thead>
                 <tr>
                   <th>Rank</th>
                   <th>Followers</th>
-                  <th>Photo</th>
-                  <th>Name</th>
-                  <th>Your Circles</th>
+                  <th>Badge (loading could be slow)</th>
                 </tr>
               </thead>
               <tbody id="followers">
                 <tr id="follower_{{profile.id}}"
                     ng-repeat="profile in sortedProfiles.slice((currentPage-1)*profilesPerPage, currentPage*profilesPerPage)">
-                  <td>#{{(currentPage-1)*profilesPerPage+$index+1}}</td>
+                  <td><a href="https://plus.google.com/{{profile.id}}"
+                         title="{{profile.name}}"
+                         target="_blank">#{{(currentPage-1)*profilesPerPage+$index+1}}</a></td>
                   <td>{{profile.followers === -1 && '0 or n/a' || (profile.followers | number:0)}}</td>
-                  <td><a href="https://plus.google.com/{{profile.id}}/about" target="_blank"><img
-                    src="https://plus.google.com/s2/photos/profile/{{profile.id}}?sz=64"></a></td>
-                  <td><a href="https://plus.google.com/{{profile.id}}/posts" target="_blank">{{profile.name}}</a></td>
-                  <td>
-                    <a href="https://plus.google.com/app/basic/{{profile.id}}/add"
-                       target="_blank"><span
-                      class="label"
-                      ng-class="profile.circles >= 1 && 'label-success' || 'label-default'"
-                      ng-pluralize
-                        count="profile.circles"
-                        when="{'0': 'Not in your circles',
-                               '1': 'In 1 circle',
-                               'other': 'In {} circles'}">
-                    </span></a>
-                  </td>
+                  <td><iframe class="google-plus-badge" ng-src="{{profile.badge}}"></iframe></td>
                 </tr>
               </tbody>
             </table>
