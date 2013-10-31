@@ -18,9 +18,9 @@ function refreshUI() {
   }, 5000);
 };
 
-self.port.on('nameAndVersion', function (nameAndVersion) {
+self.port.on('version', function (version) {
   getScope().$apply(function (scope) {
-    scope.nameAndVersion = nameAndVersion;
+    scope.version = version;
   });
 });
 
@@ -80,6 +80,7 @@ function gpfsCtrl($scope, $timeout) {
   $scope.sortedProfiles = [];
   $scope.totalProfiles = 0;
   $scope.profilesNotFromScraping = 0;
+  $scope.showBadges = true;
   $scope.processing = true;
   $scope.maxParsers = 4;
   $scope.breakdownLabels = [
@@ -107,7 +108,7 @@ function gpfsCtrl($scope, $timeout) {
                             (profilesDone - $scope.profilesNotFromScraping),
         profilesToDo = $scope.totalProfiles - profilesDone,
         remainingMinutes = Math.ceil(profilesToDo * avgTimePerProfile / 60000);
-    if (remainingMinutes === 1) {
+    if (remainingMinutes <= 1) {
       remaining = 'less than one minute';
     } else if (remainingMinutes <= 60) {
       remaining = remainingMinutes + ' minutes';
@@ -115,6 +116,9 @@ function gpfsCtrl($scope, $timeout) {
       remaining = 'less than ' + Math.ceil(remainingMinutes / 60) + ' hours';
     }
     return remaining;
+  }
+  $scope.toggleBadges = function () {
+    $scope.showBadges = !$scope.showBadges;
   }
   $scope.togglePauseResume = function () {
     self.port.emit('togglePauseResume');

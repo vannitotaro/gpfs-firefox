@@ -8,53 +8,78 @@
   </head>
   <body ng-app="gpfsApp">
     <div ng-controller="gpfsCtrl" class="container" id="container">
-      <h4>
-        <a href="http://www.ingtotaro.it/projects/gpfs-firefox/" target="_blank">
-          <img src="img/gpfs.png">
-          {{nameAndVersion}}
-        </a>
-      </h4>
-      <h4>
-        by
-        <!--
-          Google+ Badges don't work with resource:// protocol.
+      <div class="row">
+        <div class="col-md-5">
+          <h4>
+            <a href="http://www.ingtotaro.it/projects/gpfs-firefox/" target="_blank">
+              <img src="img/gpfs.png">
+              Google Plus Follower Stats for Firefox
+            </a>
+          </h4>
+          <h4>
+            by
+            <!--
+              Google+ Badges don't work with resource:// protocol.
 
-          To overcome this limitation, a static external page
-          served over http:// protocol by the gpfs-firefox official website
-          (currently hosted on GitHub Pages) at URL
-          http://www.ingtotaro.it/projects/gpfs-firefox/badge.html
-          is rendered inside an iframe to show author's and followers' badges.
-          No user data is stored on the server.
+              To overcome this limitation, a static external page
+              served over http:// protocol by the gpfs-firefox official website
+              (currently hosted on GitHub Pages) at URL
+              http://www.ingtotaro.it/projects/gpfs-firefox/badge.html
+              is rendered inside an iframe to show author's and followers' badges.
+              No user data is stored on the server.
 
-          The source code of the external page is as follows:
+              The source code of the external page is as follows:
 
-          <!doctype html>
-          <html>
-            <body>
-              <div style="position: absolute; top: 57px; z-index: -1;
-                          font-family: sans-serif; font-size: 14px; color: silver;">
-                Loading Google+ badge...
-              </div>
-              <div class="g-person" id="badge-person" data-layout="landscape" data-width="400"></div>
-              <div class="g-page" id="badge-page" data-layout="landscape" data-width="400"></div>
-              <script type="text/javascript" src="http://apis.google.com/js/plusone.js">
-                {parsetags: 'explicit'}
-              </script>
-              <script type="text/javascript">
-                var profileID = "http://plus.google.com/" + window.location.hash.slice(1);
-                document.getElementById('badge-person').dataset.href = profileID;
-                document.getElementById('badge-page').dataset.href = profileID;
-                gapi.person.go();
-                gapi.page.go();
-              </script>
-            </body>
-          </html>
+              <!doctype html>
+              <html>
+                <body>
+                  <div style="position: absolute; top: 57px; z-index: -1;
+                              font-family: sans-serif; font-size: 14px; color: silver;">
+                    Loading Google+ badge...
+                  </div>
+                  <div class="g-person" id="badge-person" data-layout="landscape" data-width="400"></div>
+                  <div class="g-page" id="badge-page" data-layout="landscape" data-width="400"></div>
+                  <script type="text/javascript" src="http://apis.google.com/js/plusone.js">
+                    {parsetags: 'explicit'}
+                  </script>
+                  <script type="text/javascript">
+                    var profileID = "http://plus.google.com/" + window.location.hash.slice(1);
+                    document.getElementById('badge-person').dataset.href = profileID;
+                    document.getElementById('badge-page').dataset.href = profileID;
+                    gapi.person.go();
+                    gapi.page.go();
+                  </script>
+                </body>
+              </html>
 
-        -->
-        <iframe class="google-plus-badge" id="author-badge"
-                src="http://www.ingtotaro.it/projects/gpfs-firefox/badge.html#113250814961864918365">
-        </iframe>
-      </h4>
+            -->
+            <iframe class="google-plus-badge" id="author-badge"
+                    src="http://www.ingtotaro.it/projects/gpfs-firefox/badge.html#113250814961864918365">
+            </iframe>
+          </h4>
+        </div>
+        <div class="col-md-3" id="circlecount-thanks">
+          <p>Some data provided by</p>
+          <p>
+            <a href="http://www.circlecount.com"
+               target="_blank"><img src="img/circlecount2.png"></a>
+          </p>
+          <p>
+            Special thanks to
+            <a href="https://plus.google.com/110727247761670372170"
+               target="_blank">Chris Macidis</a>.
+          </p>
+        </div>
+        <div class="col-md-4" id="asaclock-sponsor">
+          <p>
+            Sponsored by
+            <a href="http://www.asaclock.com/?utm_source=gpfsfirefox&amp;utm_medium=addon&amp;utm_campaign=cs2013"
+               target="_blank"><img src="img/asaclock.png"></a>
+            an elite anti-procrastination community for startup single founders
+            and people working on side projects.
+          </p>
+        </div>
+      </div>
       <div class="alert alert-success">
         <span class="glyphicon glyphicon-hand-right"></span> {{statusMessage}}
       </div>
@@ -110,38 +135,47 @@
                 <col id="table-rank-col">
                 <col id="table-followers-col">
                 <col>
+                <col id="table-badge-col">
               </colgroup>
               <thead>
                 <tr>
                   <th>Rank</th>
                   <th>Followers</th>
-                  <th>Badge (loading could be slow)</th>
+                  <th>Name</th>
+                  <th>Badge (loading could be slow)
+                    <button type="button" ng-click="toggleBadges()"
+                            class="btn btn-primary" id="toggle-badges"
+                            title="{{showBadges && 'Do not load badges' || 'Load badges'}}">
+                      <span class="glyphicon"
+                            ng-class="showBadges && 'glyphicon-eye-close' || 'glyphicon-eye-open'"></span>
+                    </button>
+                  </th>
                 </tr>
               </thead>
               <tbody id="followers">
                 <tr id="follower_{{profile.id}}"
                     ng-repeat="profile in sortedProfiles.slice((currentPage-1)*profilesPerPage, currentPage*profilesPerPage)">
-                  <td><a href="https://plus.google.com/{{profile.id}}"
-                         title="{{profile.name}}"
-                         target="_blank">#{{(currentPage-1)*profilesPerPage+$index+1}}</a></td>
+                  <td>#{{(currentPage-1)*profilesPerPage+$index+1}}</td>
                   <td>{{profile.followers === -1 && '0 or n/a' || (profile.followers | number:0)}}</td>
-                  <td><iframe class="google-plus-badge" ng-src="{{profile.badge}}"></iframe></td>
+                  <td>
+                    <a href="https://plus.google.com/{{profile.id}}"
+                       target="_blank">{{profile.name}}</a><br>
+                    <a href="https://plus.google.com/{{profile.id}}"
+                       target="_blank"><img src="img/googleplus.png"></a>
+                    <a href="http://www.circlecount.com/p/{{profile.id}}"
+                       target="_blank"
+                       ng-show="profile.source === 'C'"><img src="img/circlecount.png"></a>
+                  </td>
+                  <td>
+                    <iframe class="google-plus-badge" ng-src="{{profile.badge}}"
+                            ng-show="showBadges"></iframe>
+                  </td>
                 </tr>
               </tbody>
             </table>
             <div ng-include src="'paging.html'"></div>
           </div>
           <div class="col-md-4">
-            <p>
-              Sponsored by
-              <a href="http://www.asaclock.com/?utm_source=gpfsfirefox&amp;utm_medium=addon&amp;utm_campaign=cs2013"
-                 target="_blank">
-                <img src="img/asaclock.png">
-                an elite <strong>anti-procrastination community</strong>
-                for <strong>startup single founders</strong>
-                and people working on <strong>side projects</strong>.
-              </a>
-            </p>
             <p>Your followers with</p>
             <ul>
               <li ng-repeat="threshold in breakdownThresholds">
@@ -162,6 +196,7 @@
         This add-on is not affiliated with, sponsored by, or endorsed by Google.
         License: <a href="http://www.opensource.org/licenses/MIT" target="_blank">MIT</a>.
         Copyright 2013 <a href="http://www.ingtotaro.it" target="_blank">Giovanni Totaro</a>.
+        Version <span class="label label-info big-label">{{version}}</span>
       </small></p>
     </div>
   </body>
