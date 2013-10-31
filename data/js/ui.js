@@ -90,11 +90,20 @@ function gpfsCtrl($scope, $timeout) {
     return Math.ceil($scope.sortedProfiles.length/$scope.profilesPerPage) || 1;
   };
   $scope.remainingTime = function () {
-    var profilesDone = $scope.sortedProfiles.length,
+    var remaining,
+        profilesDone = $scope.sortedProfiles.length,
         avgTimePerProfile = ($scope.timeLatest - $scope.timeZero) /
                             (profilesDone - $scope.profilesFromCache),
-        profilesToDo = $scope.totalProfiles - profilesDone;
-    return Math.ceil(profilesToDo * avgTimePerProfile / 60000); // Minutes
+        profilesToDo = $scope.totalProfiles - profilesDone,
+        remainingMinutes = Math.ceil(profilesToDo * avgTimePerProfile / 60000);
+        if (remainingMinutes === 1) {
+          remaining = 'less than one minute';
+        } else if (remainingMinutes <= 60) {
+          remaining = remainingMinutes + ' minutes';
+        } else {
+          remaining = 'less than ' + Math.ceil(remainingMinutes / 60) + ' hours';
+        }
+    return remaining;
   }
   $scope.togglePauseResume = function () {
     self.port.emit('togglePauseResume');
