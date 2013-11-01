@@ -90,7 +90,7 @@
       <div class="alert alert-success">
         <span class="glyphicon glyphicon-hand-right"></span> {{statusMessage}}
       </div>
-      <div ng-show="status === 'Google'">
+      <div ng-if="status === 'Google'">
         <p>
           <button type="button"
                   ng-click="togglePauseResume()"
@@ -101,9 +101,9 @@
           </button>
           Processing follower <strong>#{{sortedProfiles.length + 1}}</strong>
           of {{totalProfiles}} (Google+ gives only a subset of your followers)...
-          <span ng-show="processing && timeZero && timeLatest"
+          <span ng-if="processing && timeZero && timeLatest"
                 class="label label-info big-label">Remaining time: {{remainingTime()}}</span>
-          <span ng-show="!processing" class="label label-warning big-label">PAUSED</span>
+          <span ng-if="!processing" class="label label-warning big-label">PAUSED</span>
         </p>
         <p>
           <button type="button"
@@ -127,12 +127,12 @@
           </span>
         </p>
       </div>
-      <p ng-hide="status === 'Completed'"><small>
+      <p ng-if="status !== 'Completed'"><small>
         If the progress gets stuck click
         <a href="https://plus.google.com" target="_blank">here</a>
         to log in to Google+ or to solve the captcha.
       </small></p>
-      <div ng-show="sortedProfiles.length > 0">
+      <div ng-if="sortedProfiles.length > 0">
         <div class="row">
           <div class="col-md-8">
             <div ng-include src="'paging.html'"></div>
@@ -170,11 +170,11 @@
                        target="_blank"><img src="img/googleplus.png"></a>
                     <a href="http://www.circlecount.com/p/{{profile.id}}"
                        target="_blank"
-                       ng-show="profile.source === 'C'"><img src="img/circlecount.png"></a>
+                       ng-if="profile.source === 'C'"><img src="img/circlecount.png"></a>
                   </td>
                   <td>
                     <iframe class="google-plus-badge" ng-src="{{profile.badge}}"
-                            ng-show="showBadges"></iframe>
+                            ng-if="showBadges"></iframe>
                   </td>
                 </tr>
               </tbody>
