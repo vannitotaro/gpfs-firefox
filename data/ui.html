@@ -19,41 +19,85 @@
           <h4>
             <!--
               Google+ Badges don't work with resource:// protocol.
+              http://code.google.com/p/google-plus-platform/issues/detail?id=715
 
               To overcome this limitation, a static external page
               served over http:// protocol by the gpfs-firefox official website
               (currently hosted on GitHub Pages) at URL
-              http://www.ingtotaro.it/projects/gpfs-firefox/badge.html
-              is rendered inside an iframe to show author's and followers' badges.
+              http://www.ingtotaro.it/projects/gpfs-firefox/badges.html
+              is rendered inside an iframe to show Google+ badges.
               No user data is stored on the server.
 
               The source code of the external page is as follows:
 
               <!doctype html>
               <html>
+                <head>
+                  <style>
+                    body {
+                      margin: 0;
+                    }
+                    .badge-box {
+                      position: relative;
+                      height: 104px;
+                      padding: 7px 0px 0px 0px;
+                    }
+                    .loading {
+                      position: absolute;
+                      top: 48px;
+                      left: 10px;
+                      z-index: -1;
+                      font-family: sans-serif;
+                      font-size: 14px;
+                      color: silver;
+                    }
+                  </style>
+                </head>
                 <body>
-                  <div style="position: absolute; top: 57px; z-index: -1;
-                              font-family: sans-serif; font-size: 14px; color: silver;">
-                    Loading Google+ badge...
-                  </div>
-                  <div class="g-person" id="badge-person" data-layout="landscape" data-width="400"></div>
-                  <div class="g-page" id="badge-page" data-layout="landscape" data-width="400"></div>
-                  <script type="text/javascript" src="http://apis.google.com/js/plusone.js">
+                  <div id="badges"></div>
+                  <script type="text/javascript" src="http://apis.google.com/js/platform.js">
                     {parsetags: 'explicit'}
                   </script>
                   <script type="text/javascript">
-                    var profileID = "http://plus.google.com/" + window.location.hash.slice(1);
-                    document.getElementById('badge-person').dataset.href = profileID;
-                    document.getElementById('badge-page').dataset.href = profileID;
-                    gapi.person.go();
-                    gapi.page.go();
+                    var previousHash;
+
+                    function updateBadges() {
+                      var ids = window.location.hash.slice(1).split(','),
+                          badgesHTML = '',
+                          i;
+                      for (i = 0; i < ids.length; i++) {
+                        badgesHTML +=
+                          '<div class="badge-box">' +
+                            '<div class="loading">Loading Google+ badge...</div>' +
+                            '<div class="g-person" data-href="//plus.google.com/' + ids[i] + '" ' +
+                                 'data-layout="landscape" data-width="350"></div>' +
+                            '<div class="g-page" data-href="//plus.google.com/' + ids[i] + '" ' +
+                                 'data-layout="landscape" data-width="350"></div>' +
+                          '</div>';
+                      }
+                      document.getElementById('badges').innerHTML = badgesHTML;
+                      gapi.person.go();
+                      gapi.page.go();
+                      previousHash = window.location.hash;
+                    }
+                    updateBadges();
+
+                    function pollHashChange() {
+                      window.setTimeout(function () {
+                        if (window.location.hash !== previousHash) {
+                          updateBadges();
+                        }
+                        pollHashChange();
+                      }, 300);
+                    }
+                    pollHashChange();
                   </script>
                 </body>
               </html>
 
             -->
-            <iframe class="google-plus-badge" id="author-badge"
-                    src="http://www.ingtotaro.it/projects/gpfs-firefox/badge.html#113250814961864918365">
+            <iframe id="author-and-gpfs-badges"
+                    src="http://www.ingtotaro.it/projects/gpfs-firefox/badges.html#113250814961864918365,108482122724716372904">
             </iframe>
           </h4>
           <h4>
@@ -159,8 +203,18 @@
                 </tr>
               </thead>
               <tbody id="followers">
+                <tr>
+                  <td colspan="3" class="first-row-first-td"></td>
+                  <td rowspan="{{profilesPerPage+1}}" id="badges-td">
+                    <iframe id="google-plus-badges"
+                            ng-src="{{badges()}}"
+                            ng-if="showBadges"
+                            style="height: {{8+111*visibleProfiles().length}}px">
+                    </iframe>
+                  </td>
+                </tr>
                 <tr id="follower_{{profile.id}}"
-                    ng-repeat="profile in sortedProfiles.slice((currentPage-1)*profilesPerPage, currentPage*profilesPerPage)">
+                    ng-repeat="profile in visibleProfiles()">
                   <td>#{{(currentPage-1)*profilesPerPage+$index+1}}</td>
                   <td>{{profile.followers === -1 && '0 or n/a' || (profile.followers | number:0)}}</td>
                   <td>
@@ -171,10 +225,6 @@
                     <a href="http://www.circlecount.com/p/{{profile.id}}"
                        target="_blank"
                        ng-if="profile.source === 'C'"><img src="img/circlecount.png"></a>
-                  </td>
-                  <td>
-                    <iframe class="google-plus-badge" ng-src="{{profile.badge}}"
-                            ng-if="showBadges"></iframe>
                   </td>
                 </tr>
               </tbody>

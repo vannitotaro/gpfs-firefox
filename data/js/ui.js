@@ -1,4 +1,4 @@
-var BADGE_URL = 'http://www.ingtotaro.it/projects/gpfs-firefox/badge.html#';
+var BADGES_URL = 'http://www.ingtotaro.it/projects/gpfs-firefox/badges.html#';
 
 function getScope() {
   return angular.element(document.getElementById('container')).scope();
@@ -48,7 +48,6 @@ self.port.on('profile', function (profile, fromScraping) {
       pf = profile.followers,
       i = _.sortedIndex(scope.sortedProfiles, profile,
                         function (p) {return -p.followers;});
-  profile.badge = BADGE_URL + profile.id;
   scope.sortedProfiles.splice(i, 0, profile);
   for (j = 0; j < scope.breakdownThresholds.length; j++) {
     if (pf >= scope.breakdownThresholds[j]) {
@@ -67,7 +66,7 @@ var app = angular.module('gpfsApp', []).config(
   function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
-      BADGE_URL + '**'
+      BADGES_URL + '**'
     ]);
   }
 );
@@ -116,6 +115,19 @@ function gpfsCtrl($scope, $timeout) {
       remaining = 'less than ' + Math.ceil(remainingMinutes / 60) + ' hours';
     }
     return remaining;
+  }
+  $scope.setCurrentPage = function (currentPage) {
+    $scope.currentPage = currentPage;
+  }
+  $scope.visibleProfiles = function () {
+    return $scope.sortedProfiles.slice(
+             ($scope.currentPage - 1) * $scope.profilesPerPage,
+             $scope.currentPage * $scope.profilesPerPage
+           );
+  }
+  $scope.badges = function () {
+    var ids = [p.id for each (p in $scope.visibleProfiles())].join(',');
+    return BADGES_URL + ids;
   }
   $scope.toggleBadges = function () {
     $scope.showBadges = !$scope.showBadges;
