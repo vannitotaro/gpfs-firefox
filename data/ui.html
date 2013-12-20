@@ -216,7 +216,21 @@
                 <tr id="follower_{{profile.id}}"
                     ng-repeat="profile in visibleProfiles()">
                   <td>#{{(currentPage-1)*profilesPerPage+$index+1}}</td>
-                  <td>{{profile.followers === -1 && '0 or n/a' || (profile.followers | number:0)}}</td>
+                  <td>
+                    {{profile.followers === -1 && '0 or n/a' || (profile.followers | number:0)}}
+                    <div class="follower-history-div"
+                         ng-if="profile.source === 'C'">
+                      <button type="button"
+                              ng-click="showFollowerHistory[profile.id] = !showFollowerHistory[profile.id]"
+                              class="btn btn-primary"
+                              title="Show/hide follower history">
+                        <span class="glyphicon glyphicon-time"></span>
+                      </button>
+                      <img ng-src="http://www.circlecount.com/img.follower_history.php?call=gpfs&amp;google_id={{profile.id}}"
+                           class="follower-history"
+                           ng-if="showFollowerHistory[profile.id]">
+                    </div>
+                  </td>
                   <td>
                     <a href="https://plus.google.com/{{profile.id}}"
                        target="_blank">{{profile.name}}</a><br>

@@ -79,6 +79,7 @@ function gpfsCtrl($scope, $timeout) {
   $scope.sortedProfiles = [];
   $scope.totalProfiles = 0;
   $scope.profilesNotFromScraping = 0;
+  $scope.showFollowerHistory = {};
   $scope.showBadges = true;
   $scope.processing = true;
   $scope.maxParsers = 4;

@@ -67,3 +67,15 @@
 .big-label {
   font-size: 100%;
 }
+
+.follower-history-div {
+  position: relative;
+}
+
+.follower-history {
+  position: absolute;
+  top: 20px;
+  left: 55px;
+  z-index: 1;
+  border: 2px solid rgb(188, 232, 241);
+}
