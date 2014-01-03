@@ -87,7 +87,7 @@ function gpfsCtrl($scope, $timeout) {
   $scope.showFollowerHistory = {};
   $scope.showBadges = true;
   $scope.processing = true;
-  $scope.maxParsers = 4;
+  $scope.maxParsers = 8;
   $scope.breakdownLabels = [
     'at least 1,000,000',
     '100,000 ÷ 999,999',
