@@ -1,3 +1,8 @@
+/*
+  Google Plus Follower Stats - Firefox Add-on
+  Copyright 2012-2014 Giovanni Totaro (www.ingtotaro.it)
+*/
+
 var BADGES_URL = 'http://www.ingtotaro.it/projects/gpfs-firefox/badges.html#';
 
 function getScope() {

@@ -2,7 +2,7 @@
 
 ### Who Are Your Most Influential Google+ Followers?
 
-Copyright 2013 [Giovanni Totaro](http://www.ingtotaro.it).
+Copyright 2013-2014 [Giovanni Totaro](http://www.ingtotaro.it).
 
 License: [MIT](http://www.opensource.org/licenses/MIT).
 
