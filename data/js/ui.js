@@ -29,6 +29,12 @@ self.port.on('version', function (version) {
   });
 });
 
+self.port.on('identities', function (identities) {
+  getScope().$apply(function (scope) {
+    scope.identities = identities;
+  });
+});
+
 self.port.on('status', function (status, msg) {
   getScope().$apply(function (scope) {
     scope.status = status;
@@ -102,6 +108,10 @@ function gpfsCtrl($scope, $timeout) {
   $scope.breakdown = [0, 0, 0, 0, 0, 0, 0, 0];
   $scope.breakdownPerc = function (i) {
     return ($scope.breakdown[i] * 100 / $scope.sortedProfiles.length).toFixed(2) + "%";
+  }
+  $scope.chooseIdentity = function (index) {
+    $scope.indentityIndex = index;
+    self.port.emit('identityIndex', index);
   }
   $scope.numOfPages = function () {
     return Math.ceil($scope.sortedProfiles.length/$scope.profilesPerPage) || 1;

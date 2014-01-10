@@ -9,6 +9,7 @@
   <body ng-app="gpfsApp">
     <div ng-controller="gpfsCtrl" class="container" id="container">
       <div class="row">
+
         <div class="col-md-5">
           <h4>
             <a href="http://www.ingtotaro.it/projects/gpfs-firefox/" target="_blank">
@@ -107,6 +108,7 @@
             and spread the word! :-)
           </h4>
         </div>
+
         <div class="col-md-3" id="circlecount-thanks">
           <p>Some data provided by</p>
           <p>
@@ -119,6 +121,7 @@
                target="_blank">Chris Macidis</a>.
           </p>
         </div>
+
         <div class="col-md-4" id="asaclock-sponsor">
           <p>
             Sponsored by
@@ -130,10 +133,13 @@
             and people working on side projects.
           </p>
         </div>
+
       </div>
-      <div class="alert alert-success">
+
+      <div ng-if="status !== 'Choice'" class="alert alert-success">
         <span class="glyphicon glyphicon-hand-right"></span> {{statusMessage}}
       </div>
+
       <div ng-if="status === 'Google'">
         <p>
           <button type="button"
@@ -171,11 +177,32 @@
           </span>
         </p>
       </div>
-      <p ng-if="status !== 'Completed'"><small>
+
+      <p ng-if="status !== 'Choice' && status !== 'Completed'">
         If the progress gets stuck click
         <a href="https://plus.google.com" target="_blank">here</a>
         to log in to Google+ or to solve the captcha.
-      </small></p>
+      </p>
+
+      <div ng-if="status === 'Choice'" class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Choose the Google+ identity to use:</h3>
+            </div>
+            <div class="panel-body">
+              <div class="list-group">
+                <a href="#" class="list-group-item" ng-repeat="identity in identities"
+                   ng-click="chooseIdentity($index)">
+                  <img ng-src="https://plus.google.com/s2/photos/profile/{{identity.ID}}?sz=32">
+                  {{identity.FullName}}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div ng-if="sortedProfiles.length > 0">
         <div class="row">
           <div class="col-md-8">
