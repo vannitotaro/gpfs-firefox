@@ -136,7 +136,7 @@
 
       </div>
 
-      <div ng-if="status !== 'Choice'" class="alert alert-success">
+      <div ng-if="status !== 'Choice' && status !== 'Completed'" class="alert alert-success">
         <span class="glyphicon glyphicon-hand-right"></span> {{statusMessage}}
       </div>
 
@@ -149,7 +149,7 @@
             <span class="glyphicon"
                   ng-class="processing && 'glyphicon-pause' || 'glyphicon-play'"></span>
           </button>
-          Processing follower <strong>#{{sortedProfiles.length + 1}}</strong>
+          Processed follower <strong>#{{sortedProfiles.length}}</strong>
           of {{totalProfiles}} (Google+ gives only a subset of your followers)...
           <span ng-if="processing && timeZero && timeLatest"
                 class="label label-info big-label">Remaining time: {{remainingTime()}}</span>
