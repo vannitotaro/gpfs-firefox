@@ -110,7 +110,7 @@ function gpfsCtrl($scope, $timeout) {
     return ($scope.breakdown[i] * 100 / $scope.sortedProfiles.length).toFixed(2) + "%";
   }
   $scope.chooseIdentity = function (index) {
-    $scope.indentityIndex = index;
+    $scope.identityIndex = index;
     self.port.emit('identityIndex', index);
   }
   $scope.numOfPages = function () {

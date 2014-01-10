@@ -6,12 +6,16 @@
   height: 230px;
 }
 
-#circlecount-thanks {
-  margin-top: 67px;
+#sponsor-column {
+  margin-top: 20px;
 }
 
-#asaclock-sponsor {
-  margin-top: 43px;
+#breakdown-column {
+  margin-top: 5px;
+}
+
+#breakdown-table th, #breakdown-table td {
+  text-align: right;
 }
 
 #google-alert {
@@ -25,10 +29,6 @@
 
 #page-number {
   margin: 10px;
-}
-
-#stats th, #stats td {
-  text-align: right;
 }
 
 #table th:nth-of-type(2), #table td:nth-of-type(2) {
