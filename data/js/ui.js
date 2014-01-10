@@ -32,6 +32,9 @@ self.port.on('version', function (version) {
 self.port.on('identities', function (identities) {
   getScope().$apply(function (scope) {
     scope.identities = identities;
+    if (identities.length === 1) {
+      scope.chooseIdentity(0);
+    }
   });
 });
 
