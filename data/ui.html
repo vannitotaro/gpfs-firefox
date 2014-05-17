@@ -110,7 +110,7 @@
             <span class="label label-primary">
               <span class="glyphicon glyphicon-user"></span>
               Hello,
-              <img ng-src="https://plus.google.com/s2/photos/profile/{{identities[identityIndex].ID}}?sz=32">
+              <img ng-src="{{identities[identityIndex].PhotoURL}}?sz=32">
               {{identities[identityIndex].FullName}}!
             </span>
           </p>
@@ -229,7 +229,7 @@
               <div class="list-group">
                 <a href="#" class="list-group-item" ng-repeat="identity in identities"
                    ng-click="chooseIdentity($index)">
-                  <img ng-src="https://plus.google.com/s2/photos/profile/{{identity.ID}}?sz=32">
+                  <img ng-src="{{identity.PhotoURL}}?sz=32">
                   {{identity.FullName}}
                 </a>
               </div>
@@ -257,7 +257,7 @@
                   <span class="label label-warning">
                     <span class="glyphicon glyphicon-warning-sign"></span>
                     Circles of
-                    <img ng-src="https://plus.google.com/s2/photos/profile/{{identities[0].ID}}?sz=32">
+                    <img ng-src="{{identities[0].PhotoURL}}?sz=32">
                     {{identities[0].FullName}}!
                   </span>
                   &nbsp;<a href="https://plus.google.com/108482122724716372904/posts/drXgFqtSVGE"
