@@ -2,9 +2,10 @@
     "name": "gpfs-firefox",
     "license": "MIT (http://www.opensource.org/licenses/MIT)",
     "author": "Giovanni Totaro (www.ingtotaro.it)",
-    "version": "2014.05.18.2",
+    "version": "2014.05.18.3",
     "fullName": "Google Plus Follower Stats for Firefox",
     "id": "gpfs-firefox@ingtotaro.it",
     "description": "Who Are Your Most Influential Google+ Followers?",
-    "homepage": "http://www.ingtotaro.it/projects/gpfs-firefox/"
+    "homepage": "http://www.ingtotaro.it/projects/gpfs-firefox/",
+    "permissions": {"private-browsing": true}
 }
