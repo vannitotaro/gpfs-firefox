@@ -86,6 +86,7 @@ var app = angular.module('gpfsApp', []).config(
 );
 
 function gpfsCtrl($scope, $timeout) {
+  self.port.emit('scopeready');
   $scope.status = '';
   $scope.statusMessage = '';
   $scope.currentPage = 1;

@@ -106,7 +106,7 @@
             <a href="https://addons.mozilla.org/en-US/firefox/addon/google-plus-follower-stats/reviews/add"
                target="_blank">rate/review <span class="glyphicon glyphicon-thumbs-up"></span> my add-on</a>! :)
           </h4>
-          <p ng-if="status !== 'Choice' && identities">
+          <p ng-if="status !== 'Choice' && identities" ng-cloak>
             <span class="label label-primary">
               <span class="glyphicon glyphicon-user"></span>
               Hello,
@@ -142,7 +142,7 @@
           </div>
         </div>
 
-        <div class="col-md-4" id="breakdown-column">
+        <div class="col-md-4" id="breakdown-column" ng-cloak>
           <div ng-if="sortedProfiles.length > 0" class="panel panel-info">
             <div class="panel-heading">
               <h4>Follower Breakdown</h4>
@@ -170,11 +170,11 @@
 
       </div>
 
-      <div ng-if="status !== 'Choice' && status !== 'Completed'" class="alert alert-success">
+      <div ng-if="status !== 'Choice' && status !== 'Completed'" class="alert alert-success" ng-cloak>
         <span class="glyphicon glyphicon-hand-right"></span> {{statusMessage}}
       </div>
 
-      <div ng-if="status === 'Google'">
+      <div ng-if="status === 'Google'" ng-cloak>
         <p>
           <button type="button"
                   ng-click="togglePauseResume()"
@@ -219,7 +219,7 @@
         to log in to Google+ or to solve the captcha.
       </p>
 
-      <div ng-if="status === 'Choice'" class="row">
+      <div ng-if="status === 'Choice'" class="row" ng-cloak>
         <div class="col-md-6 col-md-offset-1">
           <div class="panel panel-primary">
             <div class="panel-heading">
@@ -238,7 +238,7 @@
         </div>
       </div>
 
-      <div ng-if="sortedProfiles.length > 0">
+      <div ng-if="sortedProfiles.length > 0" ng-cloak>
         <div ng-include src="'paging.html'"></div>
         <table class="table table-striped table-condensed" id="table">
           <colgroup>
