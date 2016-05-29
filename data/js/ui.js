@@ -1,6 +1,6 @@
 /*
   Google Plus Follower Stats - Firefox Add-on
-  Copyright 2012-2015 Giovanni Totaro (www.ingtotaro.it)
+  Copyright 2012-2016 Giovanni Totaro (www.ingtotaro.it)
 */
 
 var BADGES_URL = 'http://www.ingtotaro.it/projects/gpfs-firefox/badges.html#';
@@ -146,8 +146,11 @@ function gpfsCtrl($scope, $timeout) {
            );
   }
   $scope.badges = function () {
-    var ids = [p.id for each (p in $scope.visibleProfiles())].join(',');
-    return BADGES_URL + ids;
+    var ids = [];
+    for (let p of $scope.visibleProfiles()) {
+      ids.push(p.id);
+    }
+    return BADGES_URL + ids.join(',');
   }
   $scope.toggleBadges = function () {
     $scope.showBadges = !$scope.showBadges;

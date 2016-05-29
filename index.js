@@ -1,6 +1,6 @@
 /*
   Google Plus Follower Stats - Firefox Add-on
-  Copyright 2012-2015 Giovanni Totaro (www.ingtotaro.it)
+  Copyright 2012-2016 Giovanni Totaro (www.ingtotaro.it)
 */
 
 (function () {
@@ -99,7 +99,7 @@
        while logged in to Google+.
 
      Good lines format - ID:
-       ,,,,"123456789012345678901",1,,[[,,,,[]
+       ,null,null,null,"123456789012345678901",1,,[[,,,,[]
 
      Good lines format - Full Name:
        ,"NAME","SURNAME","FULL NAME",0]
@@ -116,7 +116,7 @@
       url: 'https://plus.google.com/_/pages/getidentities/?rt=j',
       overrideMimeType: 'text/plain; charset=utf-8',
       onComplete: function (response) {
-        var reID = /,,,,"(\d{21})"/gm,
+        var reID = /,null,null,null,"(\d{21})"/gm,
             reFullName = /^,"[^"]*","[^"]*","([^"]*)",\d*]$/gm,
             rePhotoURL = /"([^"]*photo\.jpg)"/gm,
             mustRetry = true,
@@ -195,8 +195,8 @@
        GET https://plus.google.com/_/socialgraph/lookup/incoming/?o=%5Bnull%2Cnull%2C%22GOOGLEPLUSID%22%5D&n=1000000&rt=j
 
      Good lines format:
-       ,[[[,,"123456789012345678901"]
-       ,[[,,"123456789012345678901"]
+       ,[[[null,null,"123456789012345678901"]
+       ,[[null,null,"123456789012345678901"]
    ***************************************************************************/
 
   function getFollowersDataSource1(followerSet, callback) {
@@ -212,7 +212,7 @@
         },
         overrideMimeType: 'text/plain; charset=utf-8',
         onComplete: function (response) {
-          var reProfileIDs = /^,\[\[\[?,,"(\d{21})"\]$/gm,
+          var reProfileIDs = /^,\[\[\[?null,null,"(\d{21})"\]$/gm,
               result;
           if (response.status === 200) {
             while (result = reProfileIDs.exec(response.text)) {
@@ -239,11 +239,8 @@
        GET https://plus.google.com/[b/GOOGLEPLUSID/]people/haveyou?hl=en
        while logged in to Google+.
 
-     Good line fragments format:
-       ["ppv.psn",[[,,"123456789012345678901"
-       ["ppv.psn",[["EMAIL",,"123456789012345678901"
-       ["ppv.psn",[[,"HEX","123456789012345678901"
-       ["ppv.psn",[["EMAIL","HEX","123456789012345678901"
+     Good line fragment format:
+       ,[123456789,"123456789012345678901",{"
    ***************************************************************************/
 
   function getFollowersDataSource2(followerSet, callback) {
@@ -254,7 +251,7 @@
       content: {hl: 'en'},
       overrideMimeType: 'text/plain; charset=utf-8',
       onComplete: function (response) {
-        var reProfileIDs = /\["ppv.psn",\[\["?[^"]*"?,"?[^"]*"?,"(\d{21})"/gm,
+        var reProfileIDs = /,\[\d+,"(\d{21})",{"/gm,
             result;
         if (response.status === 200) {
           while (result = reProfileIDs.exec(response.text)) {
