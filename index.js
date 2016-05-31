@@ -65,8 +65,8 @@
           onReady: function (tab) {
             var worker = tab.attach({
               contentScriptFile: [
-                self.data.url('js/underscore-1.5.2.min.js'),
-                self.data.url('js/angular-1.2.8.min.js'),
+                self.data.url('js/underscore-1.8.3.min.js'),
+                self.data.url('js/angular-1.5.5.min.js'),
                 self.data.url('js/ui.js')
               ]
             });

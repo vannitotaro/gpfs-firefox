@@ -85,7 +85,7 @@ var app = angular.module('gpfsApp', []).config(
   }
 );
 
-function gpfsCtrl($scope, $timeout) {
+app.controller('gpfsCtrl', ['$scope', '$timeout', function($scope, $timeout) {
   self.port.emit('scopeready');
   $scope.status = '';
   $scope.statusMessage = '';
@@ -172,6 +172,6 @@ function gpfsCtrl($scope, $timeout) {
     $scope.maxParsers *= 2;
     self.port.emit('maxParsers', $scope.maxParsers);
   }
-}
+}]);
 
 
